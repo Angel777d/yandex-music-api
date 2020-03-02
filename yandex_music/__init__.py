@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding: <utf-8> -*-
+
 from .base import YandexMusicObject
 
 from .settings import Settings

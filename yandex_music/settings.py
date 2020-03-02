@@ -1,9 +1,10 @@
-from typing import TYPE_CHECKING, Optional, List
+# coding=utf-8
+# from typing import TYPE_CHECKING, Optional, List
 
 from yandex_music import YandexMusicObject
 
-if TYPE_CHECKING:
-    from yandex_music import Client, Product, Price
+# if TYPE_CHECKING:
+# from yandex_music import Client, Product, Price
 
 
 class Settings(YandexMusicObject):
@@ -36,12 +37,12 @@ class Settings(YandexMusicObject):
     """
 
     def __init__(self,
-                 in_app_products: List['Product'],
-                 native_products: List['Product'],
-                 web_payment_url: str,
-                 promo_codes_enabled: bool,
-                 web_payment_month_product_price: Optional['Price'] = None,
-                 client: Optional['Client'] = None,
+                 in_app_products,
+                 native_products,
+                 web_payment_url,
+                 promo_codes_enabled,
+                 web_payment_month_product_price = None,
+                 client = None,
                  **kwargs):
         self.in_app_products = in_app_products
         self.native_products = native_products
@@ -53,7 +54,7 @@ class Settings(YandexMusicObject):
         self._id_attrs = (self.in_app_products, self.native_products, self.web_payment_url, self.promo_codes_enabled)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['Settings']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:
