@@ -1,33 +1,33 @@
-from typing import TYPE_CHECKING, Optional
+# coding=utf-8
 
-if TYPE_CHECKING:
-    from yandex_music import Client
 
 from yandex_music import YandexMusicObject
 
 
+
+
 class PlaylistAbsence(YandexMusicObject):
-    """Класс представляющий причину отсутствия плейлиста.
+    """Класс, представляющий причину отсутствия плейлиста.
 
     Attributes:
         kind (:obj:`int`): Уникальный идентификатор плейлиста.
         reason (:obj:`str`): Причина отсутствия.
-        client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client` представляющий клиент Yandex
-            Music.
+        client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client`, представляющий клиент
+                Yandex Music.
 
     Args:
         kind (:obj:`int`): Уникальный идентификатор плейлиста.
         reason (:obj:`str`): Причина отсутствия.
-        client (:obj:`yandex_music.Client`, optional): Объект класса :class:`yandex_music.Client` представляющий клиент
+        client (:obj:`yandex_music.Client`, optional): Объект класса :class:`yandex_music.Client`, представляющий клиент
             Yandex Music.
         **kwargs: Произвольные ключевые аргументы полученные от API.
     """
 
     def __init__(self,
-                 kind: int,
-                 reason: str,
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 kind,
+                 reason,
+                 client= None,
+                 **kwargs) :
         self.kind = kind
         self.reason = reason
 
@@ -35,13 +35,13 @@ class PlaylistAbsence(YandexMusicObject):
         self._id_attrs = (self.kind, self.reason)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['PlaylistAbsence']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:
             data (:obj:`dict`): Поля и значения десериализуемого объекта.
-            client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client` представляющий клиент Yandex
-                Music.
+            client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client`, представляющий клиент
+                Yandex Music.
 
         Returns:
             :obj:`yandex_music.PlaylistAbsence`: Объект класса :class:`yandex_music.PlaylistAbsence`.

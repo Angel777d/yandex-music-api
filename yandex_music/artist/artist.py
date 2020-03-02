@@ -1,44 +1,58 @@
-from typing import TYPE_CHECKING, Optional, List
+# coding=utf-8
 
-if TYPE_CHECKING:
-    from yandex_music import Client, Cover, Ratings, Counts, Link, Track, Description, ArtistTracks, ArtistAlbums
 
 from yandex_music import YandexMusicObject
 
 
+
+
 class Artist(YandexMusicObject):
+    """Класс, представляющий .
+
+    Attributes:
+        client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client`, представляющий клиент
+                Yandex Music.
+
+    Args:
+        client (:obj:`yandex_music.Client`, optional): Объект класса :class:`yandex_music.Client`, представляющий клиент
+            Yandex Music.
+        **kwargs: Произвольные ключевые аргументы полученные от API.
+    """
+
     def __init__(self,
-                 id_: int,
-                 name: str,
-                 cover: Optional['Cover'],
-                 various: Optional[bool] = None,
+                 id_,
+                 error= None,
+                 name= None,
+                 cover= None,
+                 various= None,
                  composer=None,
                  genres=None,
                  op_image=None,
                  no_pictures_from_search=None,
-                 counts: Optional['Counts'] = None,
-                 available: Optional[bool] = None,
-                 ratings: Optional['Ratings'] = None,
-                 links: List['Link'] = None,
-                 tickets_available: Optional[bool] = None,
-                 likes_count: Optional[int] = None,
-                 popular_tracks: List['Track'] = None,
+                 counts= None,
+                 available= None,
+                 ratings= None,
+                 links= None,
+                 tickets_available= None,
+                 likes_count= None,
+                 popular_tracks= None,
                  regions=None,
                  decomposed=None,
                  full_names=None,
-                 description: Optional['Description'] = None,
+                 description= None,
                  countries=None,
                  en_wikipedia_link=None,
                  db_aliases=None,
                  aliases=None,
-                 init_date: Optional[str] = None,
+                 init_date= None,
                  end_date=None,
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 client= None,
+                 **kwargs) :
         self.id = id_
+
+        self.error = error
         self.name = name
         self.cover = cover
-
         self.various = various
         self.composer = composer
         self.genres = genres
@@ -67,7 +81,7 @@ class Artist(YandexMusicObject):
         self.client = client
         self._id_attrs = (self.id, self.name, self.cover)
 
-    def download_op_image(self, filename: str, size: str = '200x200') -> None:
+    def download_op_image(self, filename, size = '200x200') :
         """Загрузка обложки.
 
         Используйте это только когда нет self.cover!
@@ -76,31 +90,30 @@ class Artist(YandexMusicObject):
             filename (:obj:`str`): Путь для сохранения файла с названием и расширением.
             size (:obj:`str`, optional): Размер обложки.
         """
+        self.client.request.download('https://%s' % self.op_image.replace("%%", size), filename)
 
-        self.client.request.download(f'https://{self.op_image.replace("%%", size)}', filename)
-
-    def like(self, *args, **kwargs) -> bool:
+    def like(self, *args, **kwargs):
         """Сокращение для::
 
             client.users_likes_artists_add(artist.id, user.id *args, **kwargs)
         """
         return self.client.users_likes_artists_add(self.id, self.client.me.account.uid, *args, **kwargs)
 
-    def dislike(self, *args, **kwargs) -> bool:
+    def dislike(self, *args, **kwargs):
         """Сокращение для::
 
             client.users_likes_artists_remove(artist.id, user.id *args, **kwargs)
         """
         return self.client.users_likes_artists_remove(self.id, self.client.me.account.uid, *args, **kwargs)
 
-    def get_tracks(self, page=0, page_size=20, *args, **kwargs) -> Optional['ArtistTracks']:
+    def get_tracks(self, page=0, page_size=20, *args, **kwargs):
         """Сокращение для::
 
             client.artists_tracks(artist.id, page, page_size, *args, **kwargs)
         """
         return self.client.artists_tracks(self.id, page, page_size, *args, **kwargs)
 
-    def get_albums(self, page=0, page_size=20, sort_by='year', *args, **kwargs) -> Optional['ArtistAlbums']:
+    def get_albums(self, page=0, page_size=20, sort_by='year', *args, **kwargs):
         """Сокращение для::
 
             client.artists_direct_albums(artist.id, page, page_size, sort_by, *args, **kwargs)
@@ -108,7 +121,17 @@ class Artist(YandexMusicObject):
         return self.client.artists_direct_albums(self.id, page, page_size, sort_by, *args, **kwargs)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['Artist']:
+    def de_json(cls, data, client):
+        """Десериализация объекта.
+
+        Args:
+            data (:obj:`dict`): Поля и значения десериализуемого объекта.
+            client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client`, представляющий клиент
+                Yandex Music.
+
+        Returns:
+            :obj:`yandex_music.Artist`: Объект класса :class:`yandex_music.Artist`.
+        """
         if not data:
             return None
 
@@ -125,7 +148,17 @@ class Artist(YandexMusicObject):
         return cls(client=client, **data)
 
     @classmethod
-    def de_list(cls, data: dict, client: 'Client') -> List['Artist']:
+    def de_list(cls, data, client):
+        """Десериализация списка объектов.
+
+        Args:
+            data (:obj:`list`): Список словарей с полями и значениями десериализуемого объекта.
+            client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client`, представляющий клиент
+                Yandex Music.
+
+        Returns:
+            :obj:`list` из :obj:`yandex_music.Artist`: Список объектов класса :class:`yandex_music.Artist`.
+        """
         if not data:
             return []
 

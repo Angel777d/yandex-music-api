@@ -1,13 +1,13 @@
-from typing import TYPE_CHECKING, Optional
+# coding=utf-8
 
-if TYPE_CHECKING:
-    from yandex_music import Client, Best, SearchResult
 
 from yandex_music import YandexMusicObject
 
 
+
+
 class Search(YandexMusicObject):
-    """Класс представляющий результаты поиска.
+    """Класс, представляющий результаты поиска.
 
     Attributes:
         search_request_id (:obj:`str`): ID запроса.
@@ -25,8 +25,8 @@ class Search(YandexMusicObject):
             найденные видео.
         misspell_corrected (:obj:`bool`): Был ли исправлен запрос.
         nocorrect (:obj:`bool`): Было ли отключено исправление результата.
-        client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client` представляющий клиент Yandex
-            Music.
+        client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client`, представляющий клиент
+                Yandex Music.
 
     Args:
         search_request_id (:obj:`str`): ID запроса.
@@ -44,24 +44,24 @@ class Search(YandexMusicObject):
             найденные видео.
         misspell_corrected (:obj:`bool`, optional): Был ли исправлен запрос.
         nocorrect (:obj:`bool`, optional): Было ли отключено исправление результата.
-        client (:obj:`yandex_music.Client`, optional): Объект класса :class:`yandex_music.Client` представляющий клиент
+        client (:obj:`yandex_music.Client`, optional): Объект класса :class:`yandex_music.Client`, представляющий клиент
             Yandex Music.
         **kwargs: Произвольные ключевые аргументы полученные от API.
     """
 
     def __init__(self,
-                 search_request_id: str,
-                 text: str,
-                 best: Optional['Best'],
-                 albums: Optional['SearchResult'],
-                 artists: Optional['SearchResult'],
-                 playlists: Optional['SearchResult'],
-                 tracks: Optional['SearchResult'],
-                 videos: Optional['SearchResult'],
-                 misspell_corrected: Optional[bool] = None,
-                 nocorrect: Optional[bool] = None,
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 search_request_id,
+                 text,
+                 best,
+                 albums,
+                 artists,
+                 playlists,
+                 tracks,
+                 videos,
+                 misspell_corrected= None,
+                 nocorrect= None,
+                 client= None,
+                 **kwargs) :
         self.search_request_id = search_request_id
         self.text = text
         self.best = best
@@ -79,13 +79,13 @@ class Search(YandexMusicObject):
                           self.artists, self.playlists, self.tracks, self.videos)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['Search']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:
             data (:obj:`dict`): Поля и значения десериализуемого объекта.
-            client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client` представляющий клиент Yandex
-                Music.
+            client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client`, представляющий клиент
+                Yandex Music.
 
         Returns:
             :obj:`yandex_music.Search`: Объект класса :class:`yandex_music.Search`.

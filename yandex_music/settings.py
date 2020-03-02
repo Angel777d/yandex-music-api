@@ -1,13 +1,13 @@
-from typing import TYPE_CHECKING, Optional, List
-
-if TYPE_CHECKING:
-    from yandex_music import Client, Product, Price
+# coding=utf-8
+#
 
 from yandex_music import YandexMusicObject
 
 
+
+
 class Settings(YandexMusicObject):
-    """Класс представляющий предложения по покупке.
+    """Класс, представляющий предложения по покупке.
 
     Attributes:
         in_app_products (:obj:`list` из :obj:`yandex_music.Product`): Список объектов класса
@@ -18,8 +18,8 @@ class Settings(YandexMusicObject):
         web_payment_month_product_price (:obj:`yandex_music.Price`): Объект класса :class:`yandex_music.Price`
             представляющий цену продукта за месяц.
         promo_codes_enabled (:obj:`bool`): Доступно ли использование промо-кодов.
-        client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client` представляющий клиент Yandex
-            Music.
+        client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client`, представляющий клиент
+                Yandex Music.
 
     Args:
         in_app_products (:obj:`list` из :obj:`yandex_music.Product`): Список объектов класса
@@ -30,18 +30,18 @@ class Settings(YandexMusicObject):
         web_payment_month_product_price (:obj:`yandex_music.Price`, optional): Объект класса :class:`yandex_music.Price`
             представляющий цену продукта за месяц.
         promo_codes_enabled (:obj:`bool`): Доступно ли использование промо-кодов.
-        client (:obj:`yandex_music.Client`, optional): Объект класса :class:`yandex_music.Client` представляющий клиент
+        client (:obj:`yandex_music.Client`, optional): Объект класса :class:`yandex_music.Client`, представляющий клиент
             Yandex Music.
         **kwargs: Произвольные ключевые аргументы полученные от API.
     """
 
     def __init__(self,
-                 in_app_products: List['Product'],
-                 native_products: List['Product'],
-                 web_payment_url: str,
-                 promo_codes_enabled: bool,
-                 web_payment_month_product_price: Optional['Price'] = None,
-                 client: Optional['Client'] = None,
+                 in_app_products,
+                 native_products,
+                 web_payment_url,
+                 promo_codes_enabled,
+                 web_payment_month_product_price = None,
+                 client = None,
                  **kwargs):
         self.in_app_products = in_app_products
         self.native_products = native_products
@@ -53,13 +53,13 @@ class Settings(YandexMusicObject):
         self._id_attrs = (self.in_app_products, self.native_products, self.web_payment_url, self.promo_codes_enabled)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['Settings']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:
             data (:obj:`dict`): Поля и значения десериализуемого объекта.
-            client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client` представляющий клиент Yandex
-                Music.
+            client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client`, представляющий клиент
+                Yandex Music.
 
         Returns:
             :obj:`yandex_music.Settings`: Объект класса :class:`yandex_music.Settings`.

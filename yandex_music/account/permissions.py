@@ -1,36 +1,36 @@
-from typing import TYPE_CHECKING, Optional, List
+# coding=utf-8
 
-if TYPE_CHECKING:
-    from yandex_music import Client
 
 from yandex_music import YandexMusicObject
 
 
+
+
 class Permissions(YandexMusicObject):
-    """Класс предоставляющий информацию о правах пользователя, их изначальных значениях и даты окончания.
+    """Класс, представляющий информацию о правах пользователя, их изначальных значениях и даты окончания.
 
     Attributes:
         until (:obj:`str`): Дата окончания прав.
         values (:obj:`list` из :obj:`str`): Список прав.
         default (:obj:`list` из :obj:`str`): Список изначальных прав.
-        client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client` представляющий клиент
+        client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client`, представляющий клиент
             Yandex Music.
 
     Args:
         until (:obj:`str`): Дата окончания прав.
         values (:obj:`list` из :obj:`str`): Список прав.
         default (:obj:`list` из :obj:`str`): Список изначальных прав.
-        client (:obj:`yandex_music.Client`, optional): Объект класса :class:`yandex_music.Client` представляющий клиент
+        client (:obj:`yandex_music.Client`, optional): Объект класса :class:`yandex_music.Client`, представляющий клиент
             Yandex Music.
         **kwargs: Произвольные ключевые аргументы полученные от API.
     """
 
     def __init__(self,
-                 until: str,
-                 values: List[str],
-                 default: List[str],
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 until,
+                 values,
+                 default,
+                 client= None,
+                 **kwargs) :
         self.until = until
         self.values = values
         self.default = default
@@ -39,13 +39,13 @@ class Permissions(YandexMusicObject):
         self._id_attrs = (self.until, self.values, self.default)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['Permissions']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:
             data (:obj:`dict`): Поля и значения десериализуемого объекта.
-            client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client` представляющий клиент Yandex
-                Music.
+            client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client`, представляющий клиент
+                Yandex Music.
 
         Returns:
             :obj:`yandex_music.Permissions`: Объект класса :class:`yandex_music.Permissions`.

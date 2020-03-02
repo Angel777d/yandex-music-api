@@ -1,9 +1,9 @@
-from typing import TYPE_CHECKING, Optional, List
+# coding=utf-8
 
-if TYPE_CHECKING:
-    from yandex_music import Client
 
 from yandex_music import YandexMusicObject
+
+
 
 
 class VideoSupplement(YandexMusicObject):
@@ -17,8 +17,8 @@ class VideoSupplement(YandexMusicObject):
         url (:obj:`str`): URL на видео.
         embed_url (:obj:`str`): URL на видео, находящегося на серверах Яндекса.
         embed (:obj:`str`): HTML тег для встраивания видео.
-        client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client` представляющий клиент Yandex
-            Music.
+        client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client`, представляющий клиент
+                Yandex Music.
 
     Args:
         cover (:obj:`str`): URL на обложку видео.
@@ -28,21 +28,21 @@ class VideoSupplement(YandexMusicObject):
         url (:obj:`str`): URL на видео.
         embed_url (:obj:`str`): URL на видео, находящегося на серверах Яндекса.
         embed (:obj:`str`): HTML тег для встраивания видео.
-        client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client` представляющий клиент Yandex
-            Music.
+        client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client`, представляющий клиент
+                Yandex Music.
         **kwargs: Произвольные ключевые аргументы полученные от API.
     """
 
     def __init__(self,
-                 cover: str,
-                 title: str,
-                 provider: str,
-                 provider_video_id: str,
-                 url: Optional[str] = None,
-                 embed_url: Optional[str] = None,
-                 embed: Optional[str] = None,
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 cover,
+                 title,
+                 provider,
+                 provider_video_id,
+                 url= None,
+                 embed_url= None,
+                 embed= None,
+                 client= None,
+                 **kwargs) :
         self.cover = cover
         self.title = title
         self.provider = provider
@@ -56,13 +56,13 @@ class VideoSupplement(YandexMusicObject):
         self._id_attrs = (self.cover, self.title, self.provider_video_id)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['VideoSupplement']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:
             data (:obj:`dict`): Поля и значения десериализуемого объекта.
-            client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client` представляющий клиент Yandex
-                Music.
+            client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client`, представляющий клиент
+                Yandex Music.
 
         Returns:
             :obj:`yandex_music.VideoSupplement`: Объект класса :class:`yandex_music.VideoSupplement`.
@@ -75,17 +75,17 @@ class VideoSupplement(YandexMusicObject):
         return cls(client=client, **data)
 
     @classmethod
-    def de_list(cls, data: dict, client: 'Client') -> List['VideoSupplement']:
+    def de_list(cls, data, client):
         """Десериализация списка объектов.
 
         Args:
             data (:obj:`list`): Список словарей с полями и значениями десериализуемого объекта.
-            client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client` представляющий клиент Yandex
-                Music.
+            client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client`, представляющий клиент
+                Yandex Music.
 
         Returns:
             :obj:`list` из :obj:`yandex_music.VideoSupplement`: Список объектов класса
-                :class:`yandex_music.VideoSupplement`.
+            :class:`yandex_music.VideoSupplement`.
         """
         if not data:
             return []

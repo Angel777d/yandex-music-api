@@ -1,13 +1,13 @@
-from typing import TYPE_CHECKING, Optional
+# coding=utf-8
 
-if TYPE_CHECKING:
-    from yandex_music import Client
 
 from yandex_music import YandexMusicObject
 
 
+
+
 class User(YandexMusicObject):
-    """Класс представляющий пользователя.
+    """Класс, представляющий пользователя.
 
     Attributes:
         uid (:obj:`int`): Идентификатор пользователя.
@@ -15,8 +15,8 @@ class User(YandexMusicObject):
         name (:obj:`str`): Имя пользователя.
         sex (:obj:`str`): Пол пользователя.
         verified (:obj:`bool`): Участвует ли пользователь в генерации плейлистов дня и т.д., и т.п.
-        client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client` представляющий клиент Yandex
-            Music.
+        client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client`, представляющий клиент
+                Yandex Music.
 
     Args:
         uid (:obj:`int`): Идентификатор пользователя.
@@ -24,19 +24,19 @@ class User(YandexMusicObject):
         name (:obj:`str`): Имя пользователя.
         sex (:obj:`str`): Пол пользователя.
         verified (:obj:`bool`): Участвует ли пользователь в генерации плейлистов дня и т.д., и т.п.
-        client (:obj:`yandex_music.Client`, optional): Объект класса :class:`yandex_music.Client` представляющий клиент
+        client (:obj:`yandex_music.Client`, optional): Объект класса :class:`yandex_music.Client`, представляющий клиент
             Yandex Music.
         **kwargs: Произвольные ключевые аргументы полученные от API.
     """
 
     def __init__(self,
-                 uid: int,
-                 login: str,
-                 name: str,
-                 sex: str,
-                 verified: bool,
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 uid,
+                 login,
+                 name,
+                 sex,
+                 verified,
+                 client= None,
+                 **kwargs) :
         self.uid = uid
         self.login = login
         self.name = name
@@ -46,24 +46,23 @@ class User(YandexMusicObject):
         self.client = client
         self._id_attrs = (self.uid, self.login)
 
-    def download_avatar(self, filename: str, format_: str = 'normal') -> None:
+    def download_avatar(self, filename, format_ = 'normal') :
         """Загрузка изображения пользователя.
 
         Args:
             filename (:obj:`str`): Путь для сохранения файла с названием и расширением.
-            format_ (:obj:`str`, optional): Формат желаемого изображения (normal, orig, small, big).
+            format_ (:obj:`str`, optional): Формат желаемого изображения (`normal`, `orig`, `small`, `big`).
         """
-
-        self.client.request.download(f'https://upics.yandex.net/{self.uid}/{format_}', filename)
+        self.client.request.download('https://upics.yandex.net/%s/%s' % (self.uid, format_), filename)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['User']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:
             data (:obj:`dict`): Поля и значения десериализуемого объекта.
-            client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client` представляющий клиент Yandex
-                Music.
+            client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client`, представляющий клиент
+                Yandex Music.
 
         Returns:
             :obj:`yandex_music.User`: Объект класса :class:`yandex_music.User`.

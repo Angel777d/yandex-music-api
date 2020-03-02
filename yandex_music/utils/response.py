@@ -1,20 +1,32 @@
-from typing import TYPE_CHECKING, Optional
+# coding=utf-8
 
-if TYPE_CHECKING:
-    from yandex_music import Client
 
 from yandex_music import YandexMusicObject
 
 
+
+
 class Response(YandexMusicObject):
+    """Класс, представляющий .
+
+    Attributes:
+        client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client`, представляющий клиент
+                Yandex Music.
+
+    Args:
+        client (:obj:`yandex_music.Client`, optional): Объект класса :class:`yandex_music.Client`, представляющий клиент
+            Yandex Music.
+        **kwargs: Произвольные ключевые аргументы полученные от API.
+    """
+
     def __init__(self,
                  data,
                  invocation_info=None,
                  result=None,
                  error=None,
                  error_description=None,
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 client= None,
+                 **kwargs) :
         self.data = data
         self.invocation_info = invocation_info
         self._result = result
@@ -25,14 +37,24 @@ class Response(YandexMusicObject):
 
     @property
     def error(self):
-        return f'{self._error} {self.error_description if self.error_description else ""}'
+        return '%s %s' % (self._error, self.error_description if self.error_description else "")
 
     @property
     def result(self):
         return self.data if self._result is None else self._result
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client'):
+    def de_json(cls, data, client):
+        """Десериализация объекта.
+
+        Args:
+            data (:obj:`dict`): Поля и значения десериализуемого объекта.
+            client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client`, представляющий клиент
+                Yandex Music.
+
+        Returns:
+            :obj:`yandex_music.utils.response.Response`: Объект класса :class:`yandex_music.utils.response.Response`.
+        """
         if not data:
             return None
 

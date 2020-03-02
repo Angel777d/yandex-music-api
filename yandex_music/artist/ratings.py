@@ -1,18 +1,36 @@
-from typing import TYPE_CHECKING, Optional
+# coding=utf-8
 
-if TYPE_CHECKING:
-    from yandex_music import Client
 
 from yandex_music import YandexMusicObject
 
 
+
+
 class Ratings(YandexMusicObject):
+    """Класс, представляющий рейтинг исполнителя.
+
+    Attributes:
+        month (:obj:`int`): Значение ежемесячного рейтинга.
+        week (:obj:`int`): Значение еженедельного рейтинга.
+        day (:obj:`int`): Значение дневного рейтинга.
+        client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client`, представляющий клиент
+                Yandex Music.
+
+    Args:
+        month (:obj:`int`): Значение ежемесячного рейтинга.
+        week (:obj:`int`, optional): Значение еженедельного рейтинга.
+        day (:obj:`int`, optional): Значение дневного рейтинга.
+        client (:obj:`yandex_music.Client`, optional): Объект класса :class:`yandex_music.Client`, представляющий клиент
+            Yandex Music.
+        **kwargs: Произвольные ключевые аргументы полученные от API.
+    """
+
     def __init__(self,
-                 week: int,
-                 month: int,
-                 day: Optional[int] = None,
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 month,
+                 week= None,
+                 day= None,
+                 client= None,
+                 **kwargs) :
         self.week = week
         self.month = month
 
@@ -22,7 +40,17 @@ class Ratings(YandexMusicObject):
         self._id_attrs = (self.week, self.month)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['Ratings']:
+    def de_json(cls, data, client):
+        """Десериализация объекта.
+
+        Args:
+            data (:obj:`dict`): Поля и значения десериализуемого объекта.
+            client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client`, представляющий клиент
+                Yandex Music.
+
+        Returns:
+            :obj:`yandex_music.Ratings`: Объект класса :class:`yandex_music.Ratings`.
+        """
         if not data:
             return None
 

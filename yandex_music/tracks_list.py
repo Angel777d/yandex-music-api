@@ -1,35 +1,35 @@
-from typing import TYPE_CHECKING, Optional, List, Iterator
+# coding=utf-8
 
-if TYPE_CHECKING:
-    from yandex_music import Client, TrackShort
 
 from yandex_music import YandexMusicObject
 
 
+
+
 class TracksList(YandexMusicObject):
-    """Класс представляющий список треков.
+    """Класс, представляющий список треков.
 
     Attributes:
         uid (:obj:`int`): Уникальный идентификатор пользователя.
         revision (:obj:`int`): Актуальность данных TODO.
         tracks (:obj:`list` из :obj:`yandex_music.TrackShort`): Список треков.
-        client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client` представляющий клиент Yandex
-                Music.
+        client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client`, представляющий клиент
+                Yandex Music.
 
     Args:
         uid (:obj:`int`): Уникальный идентификатор пользователя.
         revision (:obj:`int`): Актуальность данных TODO.
         tracks (:obj:`list` из :obj:`yandex_music.TrackShort`): Список треков.
-        client (:obj:`yandex_music.Client`, optional): Объект класса :class:`yandex_music.Client` представляющий клиент
+        client (:obj:`yandex_music.Client`, optional): Объект класса :class:`yandex_music.Client`, представляющий клиент
             Yandex Music.
         **kwargs: Произвольные ключевые аргументы полученные от API.
     """
 
     def __init__(self,
-                 uid: int,
-                 revision: int,
-                 tracks: List['TrackShort'],
-                 client: Optional['Client'] = None,
+                 uid,
+                 revision,
+                 tracks,
+                 client= None,
                  **kwargs):
         self.uid = uid
         self.revision = revision
@@ -38,25 +38,25 @@ class TracksList(YandexMusicObject):
         self.client = client
         self._id_attrs = (self.uid, self.tracks)
 
-    def __getitem__(self, item) -> 'TrackShort':
+    def __getitem__(self, item):
         return self.tracks[item]
 
-    def __iter__(self) -> Iterator['TrackShort']:
+    def __iter__(self):
         return iter(self.tracks)
 
     @property
-    def tracks_ids(self) -> List[str]:
+    def tracks_ids(self):
         """:obj:`list` из :obj:`str`: Список уникальных идентификаторов треков."""
         return [track.track_id for track in self.tracks]
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['TracksList']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:
             data (:obj:`dict`): Поля и значения десериализуемого объекта.
-            client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client` представляющий клиент Yandex
-                Music.
+            client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client`, представляющий клиент
+                Yandex Music.
 
         Returns:
             :obj:`yandex_music.TracksList`: Объект класса :class:`yandex_music.TracksList`.

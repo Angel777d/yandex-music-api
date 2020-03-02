@@ -1,9 +1,8 @@
-from typing import TYPE_CHECKING, Optional, Union
+# coding=utf-8
 
-if TYPE_CHECKING:
-    from yandex_music import Client
 
 from yandex_music import YandexMusicObject, Enum, DiscreteScale
+
 
 
 de_json = {
@@ -13,14 +12,46 @@ de_json = {
 
 
 class Restrictions(YandexMusicObject):
+    """Класс, представляющий ограничения для настроек станции.
+
+    Attributes:
+        language (:obj:`yandex_music.Enum`): Объект класса :class:`yandex_music.Enum`, представляющий перечисление
+            значений для языков.
+        diversity (:obj:`yandex_music.Enum`): Объект класса :class:`yandex_music.Enum`, представляющий перечисление
+            значений для разнообразия (треков).
+        mood (:obj:`yandex_music.DiscreteScale`): Объект класса :class:`yandex_music.DiscreteScale`, представляющий
+            ограничения для значения настроения.
+        energy (:obj:`yandex_music.DiscreteScale`): Объект класса :class:`yandex_music.DiscreteScale`, представляющий
+            ограничения для значения энергичности.
+        mood_energy (:obj:`yandex_music.Enum`): Объект класса :class:`yandex_music.Enum`, представляющий перечисление
+            значений для настроения.
+        client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client`, представляющий клиент
+                Yandex Music.
+
+    Args:
+        language (:obj:`yandex_music.Enum`): Объект класса :class:`yandex_music.Enum`, представляющий перечисление
+            значений для языков.
+        diversity (:obj:`yandex_music.Enum`): Объект класса :class:`yandex_music.Enum`, представляющий перечисление
+            значений для разнообразия (треков).
+        mood (:obj:`yandex_music.DiscreteScale`, optional): Объект класса :class:`yandex_music.DiscreteScale`,
+            представляющий ограничения для значения настроения.
+        energy (:obj:`yandex_music.DiscreteScale`, optional): Объект класса :class:`yandex_music.DiscreteScale`,
+            представляющий ограничения для значения энергичности.
+        mood_energy (:obj:`yandex_music.Enum`, optional): Объект класса :class:`yandex_music.Enum`, представляющий
+            перечисление значений для настроения.
+        client (:obj:`yandex_music.Client`, optional): Объект класса :class:`yandex_music.Client`, представляющий клиент
+            Yandex Music.
+        **kwargs: Произвольные ключевые аргументы полученные от API.
+    """
+
     def __init__(self,
-                 language: Optional[Union['Enum', 'DiscreteScale']],
-                 diversity: Optional[Union['Enum', 'DiscreteScale']],
-                 mood: Optional[Union['Enum', 'DiscreteScale']] = None,
-                 energy: Optional[Union['Enum', 'DiscreteScale']] = None,
-                 mood_energy: Optional[Union['Enum', 'DiscreteScale']] = None,
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 language,
+                 diversity,
+                 mood= None,
+                 energy= None,
+                 mood_energy= None,
+                 client= None,
+                 **kwargs) :
         self.language = language
         self.diversity = diversity
         self.mood = mood
@@ -31,7 +62,17 @@ class Restrictions(YandexMusicObject):
         self._id_attrs = (self.language, self.diversity)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['Restrictions']:
+    def de_json(cls, data, client):
+        """Десериализация объекта.
+
+        Args:
+            data (:obj:`dict`): Поля и значения десериализуемого объекта.
+            client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client`, представляющий клиент
+                Yandex Music.
+
+        Returns:
+            :obj:`yandex_music.Restrictions`: Объект класса :class:`yandex_music.Restrictions`.
+        """
         if not data:
             return None
 

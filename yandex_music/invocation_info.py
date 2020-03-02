@@ -1,35 +1,35 @@
-from typing import TYPE_CHECKING, Optional
+# coding=utf-8
 
-if TYPE_CHECKING:
-    from yandex_music import Client
 
 from yandex_music import YandexMusicObject
 
 
+
+
 class InvocationInfo(YandexMusicObject):
-    """Класс представляющий информацию о запросе.
+    """Класс, представляющий информацию о запросе.
 
     Attributes:
         hostname (:obj:`str`): Имя удалённого сервера.
         req_id (:obj:`str`): Номер запроса.
         exec_duration_millis (:obj:`str`): Время выполнения в миллисекундах.
-        client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client` представляющий клиент Yandex
-            Music.
+        client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client`, представляющий клиент
+                Yandex Music.
 
     Args:
         hostname (:obj:`str`): Имя удалённого сервера.
         req_id (:obj:`str`): Номер запроса.
         exec_duration_millis (:obj:`str`, optional): Время выполнения в миллисекундах.
-        client (:obj:`yandex_music.Client`, optional): Объект класса :class:`yandex_music.Client` представляющий клиент
+        client (:obj:`yandex_music.Client`, optional): Объект класса :class:`yandex_music.Client`, представляющий клиент
             Yandex Music.
         **kwargs: Произвольные ключевые аргументы полученные от API.
     """
 
     def __init__(self,
-                 hostname: str,
-                 req_id: str,
-                 exec_duration_millis: Optional[int] = None,
-                 client: Optional['Client'] = None,
+                 hostname,
+                 req_id,
+                 exec_duration_millis= None,
+                 client= None,
                  **kwargs):
         self.hostname = hostname
         self.req_id = req_id
@@ -40,13 +40,13 @@ class InvocationInfo(YandexMusicObject):
         self._id_attrs = (self.hostname, self.req_id)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['InvocationInfo']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:
             data (:obj:`dict`): Поля и значения десериализуемого объекта.
-            client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client` представляющий клиент Yandex
-                Music.
+            client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client`, представляющий клиент
+                Yandex Music.
 
         Returns:
             :obj:`yandex_music.InvocationInfo`: Объект класса :class:`yandex_music.InvocationInfo`.

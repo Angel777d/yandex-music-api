@@ -1,17 +1,29 @@
-from typing import TYPE_CHECKING, Optional
+# coding=utf-8
 
-if TYPE_CHECKING:
-    from yandex_music import Client
 
 from yandex_music import YandexMusicObject
 
 
+
+
 class Major(YandexMusicObject):
+    """Класс, представляющий .
+
+    Attributes:
+        client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client`, представляющий клиент
+                Yandex Music.
+
+    Args:
+        client (:obj:`yandex_music.Client`, optional): Объект класса :class:`yandex_music.Client`, представляющий клиент
+            Yandex Music.
+        **kwargs: Произвольные ключевые аргументы полученные от API.
+    """
+
     def __init__(self,
-                 id_: int,
-                 name: str,
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 id_,
+                 name,
+                 client= None,
+                 **kwargs) :
         self.id = id_
         self.name = name
 
@@ -19,7 +31,17 @@ class Major(YandexMusicObject):
         self._id_attrs = (self.id, self.name)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['Major']:
+    def de_json(cls, data, client):
+        """Десериализация объекта.
+
+        Args:
+            data (:obj:`dict`): Поля и значения десериализуемого объекта.
+            client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client`, представляющий клиент
+                Yandex Music.
+
+        Returns:
+            :obj:`yandex_music.Major`: Объект класса :class:`yandex_music.Major`.
+        """
         if not data:
             return None
 

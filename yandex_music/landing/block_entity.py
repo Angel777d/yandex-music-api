@@ -1,10 +1,9 @@
-from typing import TYPE_CHECKING, Optional, List, Union
+# coding=utf-8
 
-if TYPE_CHECKING:
-    from yandex_music import Client
 
-from yandex_music import YandexMusicObject, Promotion, Album, Playlist, MixLink, PlayContext, ChartItem,\
+from yandex_music import YandexMusicObject, Promotion, Album, Playlist, MixLink, PlayContext, ChartItem, \
     GeneratedPlaylist
+
 
 
 de_json = {
@@ -19,13 +18,24 @@ de_json = {
 
 
 class BlockEntity(YandexMusicObject):
+    """Класс, представляющий .
+
+    Attributes:
+        client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client`, представляющий клиент
+                Yandex Music.
+
+    Args:
+        client (:obj:`yandex_music.Client`, optional): Объект класса :class:`yandex_music.Client`, представляющий клиент
+            Yandex Music.
+        **kwargs: Произвольные ключевые аргументы полученные от API.
+    """
+
     def __init__(self,
-                 id_: str,
-                 type_: str,
-                 data: Optional[Union['GeneratedPlaylist', 'Promotion', 'Album',
-                                      'Playlist', 'ChartItem', 'PlayContext', 'MixLink']],
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 id_,
+                 type_,
+                 data,
+                 client= None,
+                 **kwargs) :
 
         self.id = id_
         self.type = type_
@@ -35,7 +45,17 @@ class BlockEntity(YandexMusicObject):
         self._id_attrs = (self.id, self.type, self.data)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['BlockEntity']:
+    def de_json(cls, data, client):
+        """Десериализация объекта.
+
+        Args:
+            data (:obj:`dict`): Поля и значения десериализуемого объекта.
+            client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client`, представляющий клиент
+                Yandex Music.
+
+        Returns:
+            :obj:`yandex_music.BlockEntity`: Объект класса :class:`yandex_music.BlockEntity`.
+        """
         if not data:
             return None
 
@@ -45,7 +65,17 @@ class BlockEntity(YandexMusicObject):
         return cls(client=client, **data)
 
     @classmethod
-    def de_list(cls, data: dict, client: 'Client') -> List['BlockEntity']:
+    def de_list(cls, data, client):
+        """Десериализация списка объектов.
+
+        Args:
+            data (:obj:`list`): Список словарей с полями и значениями десериализуемого объекта.
+            client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client`, представляющий клиент
+                Yandex Music.
+
+        Returns:
+            :obj:`list` из :obj:`yandex_music.BlockEntity`: Список объектов класса :class:`yandex_music.BlockEntity`.
+        """
         if not data:
             return []
 

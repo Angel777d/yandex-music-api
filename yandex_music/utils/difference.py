@@ -1,5 +1,3 @@
-from enum import Enum
-
 ujson = False
 try:
     import ujson as json
@@ -8,7 +6,7 @@ except ImportError:
     import json
 
 
-class Operation(Enum):
+class Operation:
     INSERT = 'insert'
     DELETE = 'delete'
 
@@ -30,7 +28,7 @@ class Difference:
         self.operations.append(operation)
         return self
 
-    def add_insert(self, at, tracks: dict or list):
+    def add_insert(self, at, tracks):
         if not isinstance(tracks, list):
             tracks = [tracks]
 

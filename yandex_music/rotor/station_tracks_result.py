@@ -1,19 +1,31 @@
-from typing import TYPE_CHECKING, Optional, List
+# coding=utf-8
 
-if TYPE_CHECKING:
-    from yandex_music import Client, Id, Sequence
 
 from yandex_music import YandexMusicObject
 
 
+
+
 class StationTracksResult(YandexMusicObject):
+    """Класс, представляющий .
+
+    Attributes:
+        client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client`, представляющий клиент
+                Yandex Music.
+
+    Args:
+        client (:obj:`yandex_music.Client`, optional): Объект класса :class:`yandex_music.Client`, представляющий клиент
+            Yandex Music.
+        **kwargs: Произвольные ключевые аргументы полученные от API.
+    """
+
     def __init__(self,
-                 id_: Optional['Id'],
-                 sequence: List['Sequence'],
-                 batch_id: str,
-                 pumpkin: bool,
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 id_,
+                 sequence,
+                 batch_id,
+                 pumpkin,
+                 client= None,
+                 **kwargs) :
         self.id = id_
         self.sequence = sequence
         self.batch_id = batch_id
@@ -23,7 +35,17 @@ class StationTracksResult(YandexMusicObject):
         self._id_attrs = (self.id, self.sequence, self.batch_id, self.pumpkin)
 
     @classmethod
-    def de_json(cls, data, client) -> Optional['StationTracksResult']:
+    def de_json(cls, data, client):
+        """Десериализация объекта.
+
+        Args:
+            data (:obj:`dict`): Поля и значения десериализуемого объекта.
+            client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client`, представляющий клиент
+                Yandex Music.
+
+        Returns:
+            :obj:`yandex_music.StationTracksResult`: Объект класса :class:`yandex_music.StationTracksResult`.
+        """
         if not data:
             return None
 

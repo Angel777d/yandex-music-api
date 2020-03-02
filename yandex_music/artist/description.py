@@ -1,17 +1,37 @@
-from typing import TYPE_CHECKING, Optional
+# coding=utf-8
 
-if TYPE_CHECKING:
-    from yandex_music import Client
 
 from yandex_music import YandexMusicObject
 
 
+
+
 class Description(YandexMusicObject):
+    """Класс, представляющий описание исполнителя из другого источника.
+
+    Note:
+        Очень редкий объект, у минимального количества исполнителей.
+        Обычно берётся информация из википедии.
+
+    Attributes:
+        text (:obj:`str`): Описание исполнителя.
+        url (:obj:`str`): Ссылка на источник.
+        client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client`, представляющий клиент
+                Yandex Music.
+
+    Args:
+        text (:obj:`str`): Описание исполнителя.
+        url (:obj:`str`): Ссылка на источник.
+        client (:obj:`yandex_music.Client`, optional): Объект класса :class:`yandex_music.Client`, представляющий клиент
+            Yandex Music.
+        **kwargs: Произвольные ключевые аргументы полученные от API.
+    """
+
     def __init__(self,
-                 text: str,
-                 url: str,
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 text,
+                 url,
+                 client= None,
+                 **kwargs) :
         self.text = text
         self.url = url
 
@@ -19,18 +39,17 @@ class Description(YandexMusicObject):
         self._id_attrs = (self.text, self.url)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['Description']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:
             data (:obj:`dict`): Поля и значения десериализуемого объекта.
-            client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client` представляющий клиент Yandex
-                Music.
+            client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client`, представляющий клиент
+                Yandex Music.
 
         Returns:
             :obj:`yandex_music.Description`: Объект класса :class:`yandex_music.Descriptions`.
         """
-
         if not data:
             return None
 

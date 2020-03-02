@@ -1,13 +1,13 @@
-from typing import TYPE_CHECKING, Optional, List
+# coding=utf-8
 
-if TYPE_CHECKING:
-    from yandex_music import Client, AutoRenewable
 
 from yandex_music import YandexMusicObject
 
 
+
+
 class Subscription(YandexMusicObject):
-    """Класс предоставляющий информацию о подписках пользователя.
+    """Класс, представляющий информацию о подписках пользователя.
 
     Attributes:
         auto_renewable (:obj:`list` из :obj:`yandex_music.AutoRenewable`): Список объектов класса
@@ -15,8 +15,8 @@ class Subscription(YandexMusicObject):
         can_start_trial (:obj:`bool`): Есть ли возможность начать пробный период.
         mcdonalds (:obj:`bool`): mcdonalds TODO.
         end (:obj:`str`): Дата окончания.
-        client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client` представляющий клиент Yandex
-            Music.
+        client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client`, представляющий клиент
+                Yandex Music.
 
     Args:
         auto_renewable (:obj:`list` из :obj:`yandex_music.AutoRenewable`, optional): Список объектов класса
@@ -24,18 +24,18 @@ class Subscription(YandexMusicObject):
         can_start_trial (:obj:`bool`, optional): Есть ли возможность начать пробный период.
         mcdonalds (:obj:`bool`, optional): mcdonalds TODO.
         end (:obj:`str`, optional): Дата окончания.
-        client (:obj:`yandex_music.Client`, optional): Объект класса :class:`yandex_music.Client` представляющий клиент
+        client (:obj:`yandex_music.Client`, optional): Объект класса :class:`yandex_music.Client`, представляющий клиент
             Yandex Music.
         **kwargs: Произвольные ключевые аргументы полученные от API.
     """
 
     def __init__(self,
-                 auto_renewable: List['AutoRenewable'] = None,
-                 can_start_trial: Optional[bool] = None,
-                 mcdonalds: Optional[bool] = None,
-                 end: Optional[str] = None,
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 auto_renewable= None,
+                 can_start_trial= None,
+                 mcdonalds= None,
+                 end= None,
+                 client= None,
+                 **kwargs) :
         self.auto_renewable = auto_renewable
         self.can_start_trial = can_start_trial
         self.mcdonalds = mcdonalds
@@ -45,13 +45,13 @@ class Subscription(YandexMusicObject):
         self._id_attrs = (self.auto_renewable,)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['Subscription']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:
             data (:obj:`dict`): Поля и значения десериализуемого объекта.
-            client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client` представляющий клиент Yandex
-                Music.
+            client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client`, представляющий клиент
+                Yandex Music.
 
         Returns:
             :obj:`yandex_music.Subscription`: Объект класса :class:`yandex_music.Subscription`.

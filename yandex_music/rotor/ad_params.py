@@ -1,23 +1,54 @@
-from typing import TYPE_CHECKING, Optional, Union
+# coding=utf-8
 
-if TYPE_CHECKING:
-    from yandex_music import Client
 
 from yandex_music import YandexMusicObject
 
 
+
+
 class AdParams(YandexMusicObject):
+    """Класс, представляющий параметры рекламного объявления.
+
+    Note:
+        Известные дополнительные параметры(`other_params`): `user:{ID}`.
+
+    Attributes:
+        partner_id (:obj:`str` | :obj:`int`): Уникальный идентификатор заказчика рекламы.
+        category_id (:obj:`str` | :obj:`int`): Уникальный идентификатор категории рекламы.
+        page_ref (:obj:`str`): Ссылка на ссылающуюся страницу.
+        target_ref (:obj:`str`): Ссылка на целевую страницу.
+        other_params (:obj:`str`): Другие параметры.
+        ad_volume (:obj:`int`): Громкость воспроизводимой рекламы.
+        genre_id (:obj:`str`): Уникальный идентификатор жанра.
+        genre_name (:obj:`str`): Название жанра.
+        client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client`, представляющий клиент
+                Yandex Music.
+
+    Args:
+        partner_id (:obj:`str` | :obj:`int`): Уникальный идентификатор заказчика рекламы.
+        category_id (:obj:`str` | :obj:`int`): Уникальный идентификатор категории рекламы.
+        page_ref (:obj:`str`): Ссылка на ссылающуюся страницу.
+        target_ref (:obj:`str`): Ссылка на целевую страницу.
+        other_params (:obj:`str`): Другие параметры.
+        ad_volume (:obj:`int`): Громкость воспроизводимой рекламы.
+        genre_id (:obj:`str`, optional): Уникальный идентификатор жанра.
+        genre_name (:obj:`str`, optional): Название жанра.
+        client (:obj:`yandex_music.Client`, optional): Объект класса :class:`yandex_music.Client`, представляющий клиент
+            Yandex Music.
+        **kwargs: Произвольные ключевые аргументы полученные от API.
+    """
+
     def __init__(self,
-                 partner_id: Union[str, int],
-                 category_id: Union[str, int],
-                 page_ref: str,
-                 target_ref: str,
-                 other_params: str,
-                 ad_volume: int,
-                 genre_id=None,
-                 genre_name=None,
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 partner_id,
+                 category_id,
+                 page_ref,
+                 target_ref,
+                 other_params,
+                 ad_volume,
+                 genre_id= None,
+                 genre_name= None,
+                 client= None,
+                 **kwargs) :
         self.partner_id = partner_id
         self.category_id = category_id
         self.page_ref = page_ref
@@ -33,7 +64,17 @@ class AdParams(YandexMusicObject):
                           self.target_ref, self.other_params, self.ad_volume)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['AdParams']:
+    def de_json(cls, data, client):
+        """Десериализация объекта.
+
+        Args:
+            data (:obj:`dict`): Поля и значения десериализуемого объекта.
+            client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client`, представляющий клиент
+                Yandex Music.
+
+        Returns:
+            :obj:`yandex_music.AdParams`: Объект класса :class:`yandex_music.AdParams`.
+        """
         if not data:
             return None
 

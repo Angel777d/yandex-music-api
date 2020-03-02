@@ -1,17 +1,33 @@
-from typing import TYPE_CHECKING, Optional, List
+# coding=utf-8
 
-if TYPE_CHECKING:
-    from yandex_music import Client
 
 from yandex_music import YandexMusicObject
 
 
+
+
 class PlaylistId(YandexMusicObject):
+    """Класс, представляющий уникальный идентификатор плейлиста.
+
+    Attributes:
+        uid (:obj:`int`): Уникальный идентификатор пользователя владеющим плейлистом.
+        kind (:obj:`int`): Уникальный идентификатор плейлиста.
+        client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client`, представляющий клиент
+                Yandex Music.
+
+    Args:
+        uid (:obj:`int`): Уникальный идентификатор пользователя владеющим плейлистом.
+        kind (:obj:`int`): Уникальный идентификатор плейлиста.
+        client (:obj:`yandex_music.Client`, optional): Объект класса :class:`yandex_music.Client`, представляющий клиент
+            Yandex Music.
+        **kwargs: Произвольные ключевые аргументы полученные от API.
+    """
+
     def __init__(self,
-                 uid: int,
-                 kind: int,
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 uid,
+                 kind,
+                 client= None,
+                 **kwargs) :
         self.uid = uid
         self.kind = kind
 
@@ -19,18 +35,17 @@ class PlaylistId(YandexMusicObject):
         self._id_attrs = (self.uid, self.kind)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['PlaylistId']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:
             data (:obj:`dict`): Поля и значения десериализуемого объекта.
-            client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client` представляющий клиент Yandex
-                Music.
+            client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client`, представляющий клиент
+                Yandex Music.
 
         Returns:
             :obj:`yandex_music.PlaylistId`: Объект класса :class:`yandex_music.PlaylistId`.
         """
-
         if not data:
             return None
 
@@ -39,13 +54,13 @@ class PlaylistId(YandexMusicObject):
         return cls(client=client, **data)
 
     @classmethod
-    def de_list(cls, data: dict, client: 'Client') -> List['PlaylistId']:
+    def de_list(cls, data, client):
         """Десериализация списка объектов.
 
         Args:
             data (:obj:`list`): Список словарей с полями и значениями десериализуемого объекта.
-            client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client` представляющий клиент Yandex
-                Music.
+            client (:obj:`yandex_music.Client`): Объект класса :class:`yandex_music.Client`, представляющий клиент
+                Yandex Music.
 
         Returns:
             :obj:`list` из :obj:`yandex_music.PlaylistId`: Список объектов класса :class:`yandex_music.PlaylistId`.
