@@ -77,7 +77,7 @@ class DownloadInfo(YandexMusicObject):
 		sign = md5(('XGRlBW9FXlekgbPrRHuSiA' + path[1::] + s).encode('utf-8')).hexdigest()
 		# TODO sign для AAC кодека
 
-		self.direct_link = 'https://%s/get-%s/%s/%s%s' % host, self.codec, sign, ts, path
+		self.direct_link = 'https://%s/get-%s/%s/%s%s' % (host, self.codec, sign, ts, path)
 
 		return self.direct_link
 

@@ -95,7 +95,7 @@ class Playlist(YandexMusicObject):
 
     @property
     def playlist_id(self):
-        return '%s:%s' % self.owner.uid, self.kind
+        return '%s:%s' % (self.owner.uid, self.kind)
 
     def download_animated_cover(self, filename, size = '200x200') :
         """Загрузка анимированной обложки.

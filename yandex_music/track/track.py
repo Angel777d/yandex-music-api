@@ -130,7 +130,7 @@ class Track(YandexMusicObject):
 	@property
 	def track_id(self):
 		if self.albums:
-			return '%s:%s' % self.id, self.albums[0].id
+			return '%s:%s' % (self.id, self.albums[0].id)
 		return '%s' % self.id
 
 	@classmethod

@@ -53,7 +53,7 @@ class TrackShort(YandexMusicObject):
 	def track_id(self):
 		""":obj:`str`:  Уникальный идентификатор трека состоящий из его номера и номера альбома или просто из номера."""
 		if self.album_id:
-			return '%s:%s' % self.id, self.album_id
+			return '%s:%s' % (self.id, self.album_id)
 
 		return '%s' % self.id
 
