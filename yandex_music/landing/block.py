@@ -1,9 +1,11 @@
-from typing import TYPE_CHECKING, Optional, List, Union
+# coding=utf-8
+# coding=utf-8
+# coding=utf-8
+
 
 from yandex_music import YandexMusicObject
 
-if TYPE_CHECKING:
-    from yandex_music import Client, BlockEntity, PersonalPlaylistsData, PlayContextsData
+
 
 
 class Block(YandexMusicObject):
@@ -20,15 +22,15 @@ class Block(YandexMusicObject):
     """
 
     def __init__(self,
-                 id_: str,
-                 type_: str,
-                 type_for_from: str,
-                 title: str,
-                 entities: List['BlockEntity'],
-                 description: Optional[str] = None,
-                 data: Optional[Union['PersonalPlaylistsData', 'PlayContextsData']] = None,
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 id_,
+                 type_,
+                 type_for_from,
+                 title,
+                 entities,
+                 description= None,
+                 data= None,
+                 client= None,
+                 **kwargs) :
 
         self.id = id_
         self.type = type_
@@ -42,11 +44,11 @@ class Block(YandexMusicObject):
         self.client = client
         self._id_attrs = (self.id, self.type, self.type_for_from, self.title, self.entities)
 
-    def __getitem__(self, item: int) -> 'BlockEntity':
+    def __getitem__(self, item):
         return self.entities[item]
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['Block']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:
@@ -73,7 +75,7 @@ class Block(YandexMusicObject):
         return cls(client=client, **data)
 
     @classmethod
-    def de_list(cls, data: dict, client: 'Client') -> List['Block']:
+    def de_list(cls, data, client):
         """Десериализация списка объектов.
 
         Args:

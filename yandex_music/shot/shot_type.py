@@ -1,9 +1,10 @@
-from typing import TYPE_CHECKING, Optional
+# coding=utf-8
+# coding=utf-8
+
 
 from yandex_music import YandexMusicObject
 
-if TYPE_CHECKING:
-    from yandex_music import Client
+
 
 
 class ShotType(YandexMusicObject):
@@ -24,9 +25,9 @@ class ShotType(YandexMusicObject):
     """
 
     def __init__(self,
-                 id_: str,
-                 title: str,
-                 client: Optional['Client'] = None,
+                 id_,
+                 title,
+                 client= None,
                  **kwargs):
         self.id = id_
         self.title = title
@@ -35,7 +36,7 @@ class ShotType(YandexMusicObject):
         self._id_attrs = (self.id, self.title)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['ShotType']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:

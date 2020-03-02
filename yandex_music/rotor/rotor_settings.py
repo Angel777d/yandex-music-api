@@ -1,9 +1,10 @@
-from typing import TYPE_CHECKING, Optional
+# coding=utf-8
+# coding=utf-8
+
 
 from yandex_music import YandexMusicObject
 
-if TYPE_CHECKING:
-    from yandex_music import Client
+
 
 
 class RotorSettings(YandexMusicObject):
@@ -39,13 +40,13 @@ class RotorSettings(YandexMusicObject):
     """
 
     def __init__(self,
-                 language: str,
-                 diversity: str,
-                 mood: Optional[int] = None,
-                 energy: Optional[int] = None,
-                 mood_energy: Optional[str] = None,
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 language,
+                 diversity,
+                 mood= None,
+                 energy= None,
+                 mood_energy= None,
+                 client= None,
+                 **kwargs) :
         self.language = language
         self.diversity = diversity
 
@@ -57,7 +58,7 @@ class RotorSettings(YandexMusicObject):
         self._id_attrs = (self.language, self.diversity)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['RotorSettings']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:

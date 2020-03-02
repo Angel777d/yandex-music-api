@@ -1,9 +1,11 @@
-from typing import TYPE_CHECKING, Optional, List
+# coding=utf-8
+# coding=utf-8
+# coding=utf-8
+
 
 from yandex_music import YandexMusicObject
 
-if TYPE_CHECKING:
-    from yandex_music import Client, Playlist
+
 
 
 class GeneratedPlaylist(YandexMusicObject):
@@ -34,12 +36,12 @@ class GeneratedPlaylist(YandexMusicObject):
     """
 
     def __init__(self,
-                 type_: str,
-                 ready: bool,
-                 notify: bool,
-                 data: Optional['Playlist'],
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 type_,
+                 ready,
+                 notify,
+                 data,
+                 client= None,
+                 **kwargs) :
         self.type = type_
         self.ready = ready
         self.notify = notify
@@ -49,7 +51,7 @@ class GeneratedPlaylist(YandexMusicObject):
         self._id_attrs = (self.type, self.ready, self.notify, self.data)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['GeneratedPlaylist']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:
@@ -70,7 +72,7 @@ class GeneratedPlaylist(YandexMusicObject):
         return cls(client=client, **data)
 
     @classmethod
-    def de_list(cls, data: dict, client: 'Client') -> List['GeneratedPlaylist']:
+    def de_list(cls, data, client):
         """Десериализация списка объектов.
 
         Args:

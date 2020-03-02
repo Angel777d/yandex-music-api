@@ -1,9 +1,10 @@
-from typing import TYPE_CHECKING, Optional
+# coding=utf-8
+# coding=utf-8
+
 
 from yandex_music import YandexMusicObject
 
-if TYPE_CHECKING:
-    from yandex_music import Client, Best, SearchResult
+
 
 
 class Search(YandexMusicObject):
@@ -50,18 +51,18 @@ class Search(YandexMusicObject):
     """
 
     def __init__(self,
-                 search_request_id: str,
-                 text: str,
-                 best: Optional['Best'],
-                 albums: Optional['SearchResult'],
-                 artists: Optional['SearchResult'],
-                 playlists: Optional['SearchResult'],
-                 tracks: Optional['SearchResult'],
-                 videos: Optional['SearchResult'],
-                 misspell_corrected: Optional[bool] = None,
-                 nocorrect: Optional[bool] = None,
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 search_request_id,
+                 text,
+                 best,
+                 albums,
+                 artists,
+                 playlists,
+                 tracks,
+                 videos,
+                 misspell_corrected= None,
+                 nocorrect= None,
+                 client= None,
+                 **kwargs) :
         self.search_request_id = search_request_id
         self.text = text
         self.best = best
@@ -79,7 +80,7 @@ class Search(YandexMusicObject):
                           self.artists, self.playlists, self.tracks, self.videos)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['Search']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:

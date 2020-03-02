@@ -1,9 +1,10 @@
-from typing import TYPE_CHECKING, Optional
+# coding=utf-8
+# coding=utf-8
+
 
 from yandex_music import YandexMusicObject
 
-if TYPE_CHECKING:
-    from yandex_music import Client
+
 
 
 class Ratings(YandexMusicObject):
@@ -26,11 +27,11 @@ class Ratings(YandexMusicObject):
     """
 
     def __init__(self,
-                 month: int,
-                 week: Optional[int] = None,
-                 day: Optional[int] = None,
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 month,
+                 week= None,
+                 day= None,
+                 client= None,
+                 **kwargs) :
         self.week = week
         self.month = month
 
@@ -40,7 +41,7 @@ class Ratings(YandexMusicObject):
         self._id_attrs = (self.week, self.month)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['Ratings']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:

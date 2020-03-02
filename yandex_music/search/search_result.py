@@ -1,9 +1,10 @@
-from typing import TYPE_CHECKING, Optional, List, Union
+# coding=utf-8
+# coding=utf-8
+
 
 from yandex_music import YandexMusicObject, Artist, Album, Track, Playlist, Video
 
-if TYPE_CHECKING:
-    from yandex_music import Client
+
 
 
 de_json_result = {
@@ -44,13 +45,13 @@ class SearchResult(YandexMusicObject):
     """
 
     def __init__(self,
-                 type_: str,
-                 total: int,
-                 per_page: int,
-                 order: int,
-                 results: List[Union[Track, Artist, Album, Playlist, Video]],
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 type_,
+                 total,
+                 per_page,
+                 order,
+                 results,
+                 client= None,
+                 **kwargs) :
         self.type = type_
         self.total = total
         self.per_page = per_page
@@ -61,7 +62,7 @@ class SearchResult(YandexMusicObject):
         self._id_attrs = (self.total, self.per_page, self.order, self.results)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client', type_: str = None) -> Optional['SearchResult']:
+    def de_json(cls, data, client, type_ = None):
         """Десериализация объекта.
 
         Args:

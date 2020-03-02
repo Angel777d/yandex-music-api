@@ -1,9 +1,10 @@
-from typing import TYPE_CHECKING, Optional
+# coding=utf-8
+# coding=utf-8
+
 
 from yandex_music import YandexMusicObject
 
-if TYPE_CHECKING:
-    from yandex_music import Client
+
 
 
 class TrackPosition(YandexMusicObject):
@@ -20,10 +21,10 @@ class TrackPosition(YandexMusicObject):
     """
 
     def __init__(self,
-                 volume: int,
-                 index: int,
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 volume,
+                 index,
+                 client= None,
+                 **kwargs) :
         self.volume = volume
         self.index = index
 
@@ -31,7 +32,7 @@ class TrackPosition(YandexMusicObject):
         self._id_attrs = (self.volume, self.index)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['TrackPosition']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:

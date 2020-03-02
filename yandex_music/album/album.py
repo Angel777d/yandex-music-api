@@ -1,9 +1,9 @@
-from typing import TYPE_CHECKING, Optional, List
+# coding=utf-8
+
 
 from yandex_music import YandexMusicObject
 
-if TYPE_CHECKING:
-    from yandex_music import Client, Artist, Label, TrackPosition, Track
+
 
 
 class Album(YandexMusicObject):
@@ -79,35 +79,35 @@ class Album(YandexMusicObject):
     """
 
     def __init__(self,
-                 id_: int,
-                 error: Optional[str] = None,
-                 title: Optional[str] = None,
-                 track_count: Optional[int] = None,
-                 artists: List['Artist'] = None,
-                 labels: List['Label'] = None,
-                 available: Optional[bool] = None,
-                 available_for_premium_users: Optional[bool] = None,
-                 version: Optional[str] = None,
-                 cover_uri: Optional[str] = None,
-                 content_warning: Optional[str] = None,
+                 id_,
+                 error= None,
+                 title= None,
+                 track_count= None,
+                 artists= None,
+                 labels= None,
+                 available= None,
+                 available_for_premium_users= None,
+                 version= None,
+                 cover_uri= None,
+                 content_warning= None,
                  original_release_year=None,
-                 genre: Optional[str] = None,
-                 og_image: Optional[str] = None,
-                 buy: Optional[list] = None,
-                 recent: Optional[bool] = None,
-                 very_important: Optional[bool] = None,
-                 available_for_mobile: Optional[bool] = None,
-                 available_partially: Optional[bool] = None,
-                 bests: Optional[List[int]] = None,
-                 prerolls: Optional[list] = None,
-                 volumes: Optional[List[List['Track']]] = None,
-                 year: Optional[int] = None,
-                 release_date: Optional[str] = None,
-                 type_: Optional[str] = None,
-                 track_position: Optional['TrackPosition'] = None,
+                 genre= None,
+                 og_image= None,
+                 buy= None,
+                 recent= None,
+                 very_important= None,
+                 available_for_mobile= None,
+                 available_partially= None,
+                 bests= None,
+                 prerolls= None,
+                 volumes= None,
+                 year= None,
+                 release_date= None,
+                 type_= None,
+                 track_position= None,
                  regions=None,
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 client= None,
+                 **kwargs) :
         self.id = id_
 
         self.error = error
@@ -140,23 +140,23 @@ class Album(YandexMusicObject):
         self.client = client
         self._id_attrs = (self.id,)
 
-    def with_tracks(self, *args, **kwargs) -> Optional['Album']:
+    def with_tracks(self, *args, **kwargs):
         """Сокращение для::
 
             client.albums_with_tracks(album.id, *args, **kwargs)
         """
         return self.client.albums_with_tracks(self.id, *args, **kwargs)
 
-    def download_cover(self, filename: str, size: str = '200x200') -> None:
+    def download_cover(self, filename, size = '200x200') :
         """Загрузка обложки.
 
         Args:
             filename (:obj:`str`): Путь для сохранения файла с названием и расширением.
             size (:obj:`str`, optional): Размер обложки.
         """
-        self.client.request.download(f'https://{self.cover_uri.replace("%%", size)}', filename)
+        self.client.request.download('https://%s' % self.cover_uri.replace("%%", size), filename)
 
-    def download_og_image(self, filename: str, size: str = '200x200') -> None:
+    def download_og_image(self, filename, size = '200x200') :
         """Загрузка обложки.
 
         Предпочтительнее использовать `self.download_cover()`.
@@ -165,16 +165,16 @@ class Album(YandexMusicObject):
             filename (:obj:`str`): Путь для сохранения файла с названием и расширением.
             size (:obj:`str`, optional): Размер обложки.
         """
-        self.client.request.download(f'https://{self.og_image.replace("%%", size)}', filename)
+        self.client.request.download('https://%s' % self.og_image.replace("%%", size), filename)
 
-    def like(self, *args, **kwargs) -> bool:
+    def like(self, *args, **kwargs):
         """Сокращение для::
 
             client.users_likes_albums_add(album.id, user.id *args, **kwargs)
         """
         return self.client.users_likes_albums_add(self.id, self.client.me.account.uid, *args, **kwargs)
 
-    def dislike(self, *args, **kwargs) -> bool:
+    def dislike(self, *args, **kwargs):
         """Сокращение для::
 
             client.users_likes_albums_remove(album.id, user.id *args, **kwargs)
@@ -182,7 +182,7 @@ class Album(YandexMusicObject):
         return self.client.users_likes_albums_remove(self.id, self.client.me.account.uid, *args, **kwargs)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['Album']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:
@@ -207,7 +207,7 @@ class Album(YandexMusicObject):
         return cls(client=client, **data)
 
     @classmethod
-    def de_list(cls, data: dict, client: 'Client') -> List['Album']:
+    def de_list(cls, data, client):
         """Десериализация списка объектов.
 
         Args:

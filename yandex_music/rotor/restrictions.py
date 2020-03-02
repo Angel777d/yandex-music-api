@@ -1,9 +1,10 @@
-from typing import TYPE_CHECKING, Optional
+# coding=utf-8
+# coding=utf-8
+
 
 from yandex_music import YandexMusicObject, Enum, DiscreteScale
 
-if TYPE_CHECKING:
-    from yandex_music import Client
+
 
 de_json = {
     'enum': Enum.de_json,
@@ -45,13 +46,13 @@ class Restrictions(YandexMusicObject):
     """
 
     def __init__(self,
-                 language: Optional['Enum'],
-                 diversity: Optional['Enum'],
-                 mood: Optional['DiscreteScale'] = None,
-                 energy: Optional['DiscreteScale'] = None,
-                 mood_energy: Optional['Enum'] = None,
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 language,
+                 diversity,
+                 mood= None,
+                 energy= None,
+                 mood_energy= None,
+                 client= None,
+                 **kwargs) :
         self.language = language
         self.diversity = diversity
         self.mood = mood
@@ -62,7 +63,7 @@ class Restrictions(YandexMusicObject):
         self._id_attrs = (self.language, self.diversity)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['Restrictions']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:

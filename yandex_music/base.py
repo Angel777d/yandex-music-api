@@ -2,10 +2,9 @@
 
 import future
 from abc import ABCMeta
-# from typing import TYPE_CHECKING
+#
 
-# if TYPE_CHECKING:
-# 	pass
+
 
 ujson = False
 try:

@@ -1,9 +1,10 @@
-from typing import TYPE_CHECKING, Optional
+# coding=utf-8
+# coding=utf-8
+
 
 from yandex_music import YandexMusicObject
 
-if TYPE_CHECKING:
-    from yandex_music import Client, Id, Icon, Restrictions
+
 
 
 class Station(YandexMusicObject):
@@ -50,17 +51,17 @@ class Station(YandexMusicObject):
     """
 
     def __init__(self,
-                 id_: Optional['Id'],
-                 name: str,
-                 icon: Optional['Icon'],
-                 mts_icon: Optional['Icon'],
-                 geocell_icon: Optional['Icon'],
-                 id_for_from: str,
-                 restrictions: Optional['Restrictions'],
-                 restrictions2: Optional['Restrictions'],
-                 parent_id: Optional['Id'] = None,
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 id_,
+                 name,
+                 icon,
+                 mts_icon,
+                 geocell_icon,
+                 id_for_from,
+                 restrictions,
+                 restrictions2,
+                 parent_id= None,
+                 client= None,
+                 **kwargs) :
         self.id = id_
         self.name = name
         self.icon = icon
@@ -77,7 +78,7 @@ class Station(YandexMusicObject):
                           self.id_for_from, self.restrictions, self.restrictions2)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['Station']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:

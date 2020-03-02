@@ -1,9 +1,10 @@
-from typing import TYPE_CHECKING, Optional, List
+# coding=utf-8
+# coding=utf-8
+
 
 from yandex_music import YandexMusicObject
 
-if TYPE_CHECKING:
-    from yandex_music import Client, Artist, Track, Album, Cover, PlaylistId, Video, Chart, Vinyl
+
 
 
 class BriefInfo(YandexMusicObject):
@@ -20,21 +21,21 @@ class BriefInfo(YandexMusicObject):
     """
 
     def __init__(self,
-                 artist: Optional['Artist'],
-                 albums: List['Album'],
-                 also_albums: List['Album'],
-                 last_release_ids: List[int],
-                 popular_tracks: List['Track'],
-                 similar_artists: List['Artist'],
-                 all_covers: List['Cover'],
+                 artist,
+                 albums,
+                 also_albums,
+                 last_release_ids,
+                 popular_tracks,
+                 similar_artists,
+                 all_covers,
                  concerts,
-                 videos: List['Video'],
-                 vinyls: List['Vinyl'],
-                 has_promotions: bool,
-                 playlist_ids: List['PlaylistId'],
-                 tracks_in_chart: List['Chart'] = None,
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 videos,
+                 vinyls,
+                 has_promotions,
+                 playlist_ids,
+                 tracks_in_chart= None,
+                 client= None,
+                 **kwargs) :
         self.artist = artist
         self.albums = albums
         self.also_albums = also_albums
@@ -56,7 +57,7 @@ class BriefInfo(YandexMusicObject):
                           self.has_promotions, self.playlist_ids)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['BriefInfo']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:

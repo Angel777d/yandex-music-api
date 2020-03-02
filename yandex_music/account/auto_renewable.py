@@ -1,9 +1,11 @@
-from typing import TYPE_CHECKING, Optional, List
+# coding=utf-8
+# coding=utf-8
+# coding=utf-8
+
 
 from yandex_music import YandexMusicObject
 
-if TYPE_CHECKING:
-    from yandex_music import Client, Product
+
 
 
 class AutoRenewable(YandexMusicObject):
@@ -35,15 +37,15 @@ class AutoRenewable(YandexMusicObject):
     """
 
     def __init__(self,
-                 expires: str,
-                 vendor: str,
-                 vendor_help_url: str,
-                 product: Optional['Product'],
-                 finished: bool,
-                 product_id: Optional[str] = None,
-                 order_id: Optional[int] = None,
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 expires,
+                 vendor,
+                 vendor_help_url,
+                 product,
+                 finished,
+                 product_id= None,
+                 order_id= None,
+                 client= None,
+                 **kwargs) :
         self.expires = expires
         self.vendor = vendor
         self.vendor_help_url = vendor_help_url
@@ -57,7 +59,7 @@ class AutoRenewable(YandexMusicObject):
         self._id_attrs = (self.expires, self.vendor, self.vendor_help_url, self.product, self.finished)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['AutoRenewable']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:
@@ -78,7 +80,7 @@ class AutoRenewable(YandexMusicObject):
         return cls(client=client, **data)
 
     @classmethod
-    def de_list(cls, data: dict, client: 'Client') -> List['AutoRenewable']:
+    def de_list(cls, data, client):
         """Десериализация списка объектов.
 
         Args:

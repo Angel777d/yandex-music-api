@@ -1,9 +1,10 @@
-from typing import TYPE_CHECKING, Optional
+# coding=utf-8
+# coding=utf-8
+
 
 from yandex_music import YandexMusicObject
 
-if TYPE_CHECKING:
-    from yandex_music import Client
+
 
 
 class PlayCounter(YandexMusicObject):
@@ -30,11 +31,11 @@ class PlayCounter(YandexMusicObject):
     """
 
     def __init__(self,
-                 value: int,
-                 description: str,
-                 updated: bool,
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 value,
+                 description,
+                 updated,
+                 client= None,
+                 **kwargs) :
         self.value = value
         self.description = description
         self.updated = updated
@@ -43,7 +44,7 @@ class PlayCounter(YandexMusicObject):
         self._id_attrs = (self.value, self.description, self.updated)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['PlayCounter']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:

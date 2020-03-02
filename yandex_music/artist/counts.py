@@ -1,9 +1,10 @@
-from typing import TYPE_CHECKING, Optional
+# coding=utf-8
+# coding=utf-8
+
 
 from yandex_music import YandexMusicObject
 
-if TYPE_CHECKING:
-    from yandex_music import Client
+
 
 
 class Counts(YandexMusicObject):
@@ -32,12 +33,12 @@ class Counts(YandexMusicObject):
     """
 
     def __init__(self,
-                 tracks: int,
-                 direct_albums: int,
-                 also_albums: int,
-                 also_tracks: int,
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 tracks,
+                 direct_albums,
+                 also_albums,
+                 also_tracks,
+                 client= None,
+                 **kwargs) :
         self.tracks = tracks
         self.direct_albums = direct_albums
         self.also_albums = also_albums
@@ -47,7 +48,7 @@ class Counts(YandexMusicObject):
         self._id_attrs = (self.tracks, self.direct_albums, self.also_albums, self.also_tracks)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['Counts']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:

@@ -1,9 +1,10 @@
-from typing import TYPE_CHECKING, Optional
+# coding=utf-8
+# coding=utf-8
+
 
 from yandex_music import YandexMusicObject
 
-if TYPE_CHECKING:
-    from yandex_music import Client
+
 
 
 class Id(YandexMusicObject):
@@ -27,10 +28,10 @@ class Id(YandexMusicObject):
     """
 
     def __init__(self,
-                 type_: str,
-                 tag: str,
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 type_,
+                 tag,
+                 client= None,
+                 **kwargs) :
         self.type = type_
         self.tag = tag
 
@@ -38,7 +39,7 @@ class Id(YandexMusicObject):
         self._id_attrs = (self.type, self.tag)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['Id']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:

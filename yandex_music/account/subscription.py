@@ -1,9 +1,10 @@
-from typing import TYPE_CHECKING, Optional, List
+# coding=utf-8
+# coding=utf-8
+
 
 from yandex_music import YandexMusicObject
 
-if TYPE_CHECKING:
-    from yandex_music import Client, AutoRenewable
+
 
 
 class Subscription(YandexMusicObject):
@@ -30,12 +31,12 @@ class Subscription(YandexMusicObject):
     """
 
     def __init__(self,
-                 auto_renewable: List['AutoRenewable'] = None,
-                 can_start_trial: Optional[bool] = None,
-                 mcdonalds: Optional[bool] = None,
-                 end: Optional[str] = None,
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 auto_renewable= None,
+                 can_start_trial= None,
+                 mcdonalds= None,
+                 end= None,
+                 client= None,
+                 **kwargs) :
         self.auto_renewable = auto_renewable
         self.can_start_trial = can_start_trial
         self.mcdonalds = mcdonalds
@@ -45,7 +46,7 @@ class Subscription(YandexMusicObject):
         self._id_attrs = (self.auto_renewable,)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['Subscription']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:

@@ -1,9 +1,9 @@
-from typing import TYPE_CHECKING, Optional, List, Dict
+# coding=utf-8
+
 
 from yandex_music import YandexMusicObject
 
-if TYPE_CHECKING:
-    from yandex_music import Client, Title, Icon, Images
+
 
 
 class Genre(YandexMusicObject):
@@ -52,21 +52,21 @@ class Genre(YandexMusicObject):
     """
 
     def __init__(self,
-                 id_: str,
-                 weight: int,
-                 composer_top: bool,
-                 title: str,
-                 titles: Dict[str, Optional['Title']],
-                 images: Optional['Images'],
-                 show_in_menu: bool,
-                 full_title: Optional[str] = None,
-                 url_part: Optional[str] = None,
-                 color: Optional[str] = None,
-                 radio_icon: Optional['Icon'] = None,
-                 sub_genres: List['Genre'] = None,
+                 id_,
+                 weight,
+                 composer_top,
+                 title,
+                 titles,
+                 images,
+                 show_in_menu,
+                 full_title= None,
+                 url_part= None,
+                 color= None,
+                 radio_icon= None,
+                 sub_genres= None,
                  hide_in_regions=None,
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 client= None,
+                 **kwargs) :
         self.id = id_
         self.weight = weight
         self.composer_top = composer_top
@@ -86,7 +86,7 @@ class Genre(YandexMusicObject):
         self._id_attrs = (self.id, self.weight, self.composer_top, self.title, self.images, self.show_in_menu)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['Genre']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:
@@ -110,7 +110,7 @@ class Genre(YandexMusicObject):
         return cls(client=client, **data)
 
     @classmethod
-    def de_list(cls, data: dict, client: 'Client') -> List['Genre']:
+    def de_list(cls, data, client):
         """Десериализация списка объектов.
 
         Args:

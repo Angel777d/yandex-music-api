@@ -1,9 +1,9 @@
-from typing import TYPE_CHECKING, Optional
+# coding=utf-8
+
 
 from yandex_music import YandexMusicObject
 
-if TYPE_CHECKING:
-    from yandex_music import Client
+
 
 
 class CaptchaResponse(YandexMusicObject):
@@ -32,8 +32,8 @@ class CaptchaResponse(YandexMusicObject):
                  x_captcha_key,
                  error_description,
                  error,
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 client= None,
+                 **kwargs) :
         self.x_captcha_url = x_captcha_url
         self.x_captcha_key = x_captcha_key
         self.error_description = error_description
@@ -50,12 +50,12 @@ class CaptchaResponse(YandexMusicObject):
                 капчи и расширение `.gif`.
         """
         if not filename:
-            filename = f'{self.x_captcha_key}.gif'
+            filename = '%s.gif' % self.x_captcha_key
 
         self.client.request.download(self.x_captcha_url, filename)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client'):
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:

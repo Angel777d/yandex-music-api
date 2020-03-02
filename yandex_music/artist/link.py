@@ -1,9 +1,11 @@
-from typing import TYPE_CHECKING, Optional, List
+# coding=utf-8
+# coding=utf-8
+# coding=utf-8
+
 
 from yandex_music import YandexMusicObject
 
-if TYPE_CHECKING:
-    from yandex_music import Client
+
 
 
 class Link(YandexMusicObject):
@@ -30,12 +32,12 @@ class Link(YandexMusicObject):
     """
 
     def __init__(self,
-                 title: str,
-                 href: str,
-                 type_: str,
-                 social_network: Optional[str] = None,
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 title,
+                 href,
+                 type_,
+                 social_network= None,
+                 client= None,
+                 **kwargs) :
         self.title = title
         self.href = href
         self.type = type_
@@ -46,7 +48,7 @@ class Link(YandexMusicObject):
         self._id_attrs = (self.title, self.href, self.type)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['Link']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:
@@ -65,7 +67,7 @@ class Link(YandexMusicObject):
         return cls(client=client, **data)
 
     @classmethod
-    def de_list(cls, data: dict, client: 'Client') -> List['Link']:
+    def de_list(cls, data, client):
         """Десериализация списка объектов.
 
         Args:

@@ -1,9 +1,10 @@
-from typing import TYPE_CHECKING, Optional
+# coding=utf-8
+# coding=utf-8
+
 
 from yandex_music import YandexMusicObject
 
-if TYPE_CHECKING:
-    from yandex_music import Client
+
 
 
 class Price(YandexMusicObject):
@@ -24,10 +25,10 @@ class Price(YandexMusicObject):
     """
 
     def __init__(self,
-                 amount: int,
-                 currency: str,
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 amount,
+                 currency,
+                 client= None,
+                 **kwargs) :
         self.amount = amount
         self.currency = currency
 
@@ -35,7 +36,7 @@ class Price(YandexMusicObject):
         self._id_attrs = (self.amount, self.currency)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['Price']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:

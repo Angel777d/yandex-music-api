@@ -1,7 +1,4 @@
-from typing import TYPE_CHECKING
-
-if TYPE_CHECKING:
-    from yandex_music.utils.captcha_response import CaptchaResponse
+# coding=utf-8
 
 
 class YandexMusicError(Exception):
@@ -39,9 +36,9 @@ class Captcha(YandexMusicError):
             :class:`yandex_music.utils.captcha_response.CaptchaResponse` представляющий капчу.
     """
 
-    def __init__(self, msg: str, captcha: 'CaptchaResponse', *args, **kwargs):
+    def __init__(self, msg, captcha, *args, **kwargs):
         self.captcha = captcha
-        super().__init__(msg, *args, **kwargs)
+        YandexMusicError.__init__(self, msg, *args, **kwargs)
 
 
 class CaptchaRequired(Captcha):
@@ -75,4 +72,4 @@ class TimedOut(NetworkError):
     """
 
     def __init__(self):
-        super().__init__('Timed out')
+        NetworkError.__init__(self, 'Timed out')

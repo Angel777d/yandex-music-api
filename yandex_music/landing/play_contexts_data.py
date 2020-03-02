@@ -1,9 +1,10 @@
-from typing import TYPE_CHECKING, Optional, List
+# coding=utf-8
+# coding=utf-8
+
 
 from yandex_music import YandexMusicObject
 
-if TYPE_CHECKING:
-    from yandex_music import Client, TrackShortOld
+
 
 
 class PlayContextsData(YandexMusicObject):
@@ -20,16 +21,16 @@ class PlayContextsData(YandexMusicObject):
     """
 
     def __init__(self,
-                 other_tracks: List['TrackShortOld'],
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 other_tracks,
+                 client= None,
+                 **kwargs) :
         self.other_tracks = other_tracks
 
         self.client = client
         self._id_attrs = (self.other_tracks,)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['PlayContextsData']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:

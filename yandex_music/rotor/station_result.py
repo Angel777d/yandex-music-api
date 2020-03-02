@@ -1,9 +1,11 @@
-from typing import TYPE_CHECKING, Optional, List
+# coding=utf-8
+# coding=utf-8
+# coding=utf-8
+
 
 from yandex_music import YandexMusicObject
 
-if TYPE_CHECKING:
-    from yandex_music import Client, Station, RotorSettings, AdParams
+
 
 
 class StationResult(YandexMusicObject):
@@ -20,14 +22,14 @@ class StationResult(YandexMusicObject):
     """
 
     def __init__(self,
-                 station: Optional['Station'],
-                 settings: Optional['RotorSettings'],
-                 settings2: Optional['RotorSettings'],
-                 ad_params: Optional['AdParams'],
-                 explanation: Optional[str] = None,
-                 prerolls: Optional[list] = None,
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 station,
+                 settings,
+                 settings2,
+                 ad_params,
+                 explanation= None,
+                 prerolls= None,
+                 client= None,
+                 **kwargs) :
         self.station = station
         self.settings = settings
         self.settings2 = settings2
@@ -39,7 +41,7 @@ class StationResult(YandexMusicObject):
         self._id_attrs = (self.station, self.settings, self.settings2, self.ad_params)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['StationResult']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:
@@ -63,7 +65,7 @@ class StationResult(YandexMusicObject):
         return cls(client=client, **data)
 
     @classmethod
-    def de_list(cls, data: dict, client: 'Client') -> List['StationResult']:
+    def de_list(cls, data, client):
         """Десериализация списка объектов.
 
         Args:

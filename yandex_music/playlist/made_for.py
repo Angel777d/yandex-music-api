@@ -1,9 +1,10 @@
-from typing import TYPE_CHECKING, Optional
+# coding=utf-8
+# coding=utf-8
+
 
 from yandex_music import YandexMusicObject
 
-if TYPE_CHECKING:
-    from yandex_music import Client, User, CaseForms
+
 
 
 class MadeFor(YandexMusicObject):
@@ -28,10 +29,10 @@ class MadeFor(YandexMusicObject):
     """
 
     def __init__(self,
-                 user_info: Optional['User'],
-                 case_forms: Optional['CaseForms'],
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 user_info,
+                 case_forms,
+                 client= None,
+                 **kwargs) :
         self.user_info = user_info
         self.case_forms = case_forms
 
@@ -39,7 +40,7 @@ class MadeFor(YandexMusicObject):
         self._id_attrs = (self.user_info, self.case_forms)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['MadeFor']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:

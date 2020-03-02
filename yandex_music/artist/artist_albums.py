@@ -1,9 +1,10 @@
-from typing import TYPE_CHECKING, Optional, List
+# coding=utf-8
+# coding=utf-8
+
 
 from yandex_music import YandexMusicObject
 
-if TYPE_CHECKING:
-    from yandex_music import Client, Album, Pager
+
 
 
 class ArtistAlbums(YandexMusicObject):
@@ -24,10 +25,10 @@ class ArtistAlbums(YandexMusicObject):
     """
 
     def __init__(self,
-                 albums: List['Album'],
-                 pager: Optional['Pager'],
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 albums,
+                 pager,
+                 client= None,
+                 **kwargs) :
         self.albums = albums
         self.pager = pager
 
@@ -35,7 +36,7 @@ class ArtistAlbums(YandexMusicObject):
         self._id_attrs = (self.pager, self.albums)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['ArtistAlbums']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:

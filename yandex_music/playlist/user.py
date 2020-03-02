@@ -1,9 +1,9 @@
-from typing import TYPE_CHECKING, Optional
+# coding=utf-8
+
 
 from yandex_music import YandexMusicObject
 
-if TYPE_CHECKING:
-    from yandex_music import Client
+
 
 
 class User(YandexMusicObject):
@@ -30,13 +30,13 @@ class User(YandexMusicObject):
     """
 
     def __init__(self,
-                 uid: int,
-                 login: str,
-                 name: str,
-                 sex: str,
-                 verified: bool,
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 uid,
+                 login,
+                 name,
+                 sex,
+                 verified,
+                 client= None,
+                 **kwargs) :
         self.uid = uid
         self.login = login
         self.name = name
@@ -46,17 +46,17 @@ class User(YandexMusicObject):
         self.client = client
         self._id_attrs = (self.uid, self.login)
 
-    def download_avatar(self, filename: str, format_: str = 'normal') -> None:
+    def download_avatar(self, filename, format_ = 'normal') :
         """Загрузка изображения пользователя.
 
         Args:
             filename (:obj:`str`): Путь для сохранения файла с названием и расширением.
             format_ (:obj:`str`, optional): Формат желаемого изображения (`normal`, `orig`, `small`, `big`).
         """
-        self.client.request.download(f'https://upics.yandex.net/{self.uid}/{format_}', filename)
+        self.client.request.download('https://upics.yandex.net/%s/%s' % (self.uid, format_), filename)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['User']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:

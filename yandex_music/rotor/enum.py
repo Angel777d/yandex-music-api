@@ -1,9 +1,10 @@
-from typing import TYPE_CHECKING, Optional, List
+# coding=utf-8
+# coding=utf-8
+
 
 from yandex_music import YandexMusicObject
 
-if TYPE_CHECKING:
-    from yandex_music import Client, Value
+
 
 
 class Enum(YandexMusicObject):
@@ -28,11 +29,11 @@ class Enum(YandexMusicObject):
     """
 
     def __init__(self,
-                 type_: str,
-                 name: str,
-                 possible_values: List['Value'],
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 type_,
+                 name,
+                 possible_values,
+                 client= None,
+                 **kwargs) :
         self.type = type_
         self.name = name
         self.possible_values = possible_values
@@ -41,7 +42,7 @@ class Enum(YandexMusicObject):
         self._id_attrs = (self.type, self.name, self.possible_values)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['Enum']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:

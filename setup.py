@@ -1,3 +1,4 @@
+# coding=utf-8
 import sys
 import json
 
@@ -37,7 +38,7 @@ setup(name='yandex-music',
       url='https://github.com/MarshalX/yandex-music-api/',
       keywords='python yandex music api wrapper library питон яндекс музыка апи обёртка библиотека',
       description='Делаю то, что по определённым причинам не сделала компания Yandex.',
-      long_description=f'{readme}\n{changes}',
+      long_description='%s\n%s' % (readme, changes),
       packages=packages,
       install_requires=requirements('default'),
       include_package_data=True,

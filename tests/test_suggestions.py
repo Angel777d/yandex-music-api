@@ -1,3 +1,6 @@
+# coding=utf-8
+# coding=utf-8
+# coding=utf-8
 import pytest
 
 from tests import TestBest

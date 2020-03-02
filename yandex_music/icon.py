@@ -1,9 +1,9 @@
-from typing import TYPE_CHECKING, Optional
+# coding=utf-8
+
 
 from yandex_music import YandexMusicObject
 
-if TYPE_CHECKING:
-    from yandex_music import Client
+
 
 
 class Icon(YandexMusicObject):
@@ -24,9 +24,9 @@ class Icon(YandexMusicObject):
     """
 
     def __init__(self,
-                 background_color: str,
-                 image_url: str,
-                 client: Optional['Client'] = None,
+                 background_color,
+                 image_url,
+                 client= None,
                  **kwargs):
         self.background_color = background_color
         self.image_url = image_url
@@ -34,17 +34,17 @@ class Icon(YandexMusicObject):
         self.client = client
         self._id_attrs = (self.background_color, self.image_url)
 
-    def download(self, filename: str, size: str = '200x200') -> None:
+    def download(self, filename, size = '200x200') :
         """Загрузка иконки.
 
         Args:
             filename (:obj:`str`): Путь для сохранения файла с названием и расширением.
             size (:obj:`str`, optional): Размер иконки.
         """
-        self.client.request.download(f'https://{self.image_url.replace("%%", size)}', filename)
+        self.client.request.download('https://%s' % self.image_url.replace("%%", size), filename)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['Icon']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:

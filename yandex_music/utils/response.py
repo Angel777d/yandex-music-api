@@ -1,9 +1,10 @@
-from typing import TYPE_CHECKING, Optional
+# coding=utf-8
+# coding=utf-8
+
 
 from yandex_music import YandexMusicObject
 
-if TYPE_CHECKING:
-    from yandex_music import Client
+
 
 
 class Response(YandexMusicObject):
@@ -25,8 +26,8 @@ class Response(YandexMusicObject):
                  result=None,
                  error=None,
                  error_description=None,
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 client= None,
+                 **kwargs) :
         self.data = data
         self.invocation_info = invocation_info
         self._result = result
@@ -37,14 +38,14 @@ class Response(YandexMusicObject):
 
     @property
     def error(self):
-        return f'{self._error} {self.error_description if self.error_description else ""}'
+        return '%s %s' % (self._error, self.error_description if self.error_description else "")
 
     @property
     def result(self):
         return self.data if self._result is None else self._result
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['Response']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:

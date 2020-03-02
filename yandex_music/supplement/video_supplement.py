@@ -1,9 +1,11 @@
-from typing import TYPE_CHECKING, Optional, List
+# coding=utf-8
+# coding=utf-8
+# coding=utf-8
+
 
 from yandex_music import YandexMusicObject
 
-if TYPE_CHECKING:
-    from yandex_music import Client
+
 
 
 class VideoSupplement(YandexMusicObject):
@@ -34,15 +36,15 @@ class VideoSupplement(YandexMusicObject):
     """
 
     def __init__(self,
-                 cover: str,
-                 title: str,
-                 provider: str,
-                 provider_video_id: str,
-                 url: Optional[str] = None,
-                 embed_url: Optional[str] = None,
-                 embed: Optional[str] = None,
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 cover,
+                 title,
+                 provider,
+                 provider_video_id,
+                 url= None,
+                 embed_url= None,
+                 embed= None,
+                 client= None,
+                 **kwargs) :
         self.cover = cover
         self.title = title
         self.provider = provider
@@ -56,7 +58,7 @@ class VideoSupplement(YandexMusicObject):
         self._id_attrs = (self.cover, self.title, self.provider_video_id)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['VideoSupplement']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:
@@ -75,7 +77,7 @@ class VideoSupplement(YandexMusicObject):
         return cls(client=client, **data)
 
     @classmethod
-    def de_list(cls, data: dict, client: 'Client') -> List['VideoSupplement']:
+    def de_list(cls, data, client):
         """Десериализация списка объектов.
 
         Args:

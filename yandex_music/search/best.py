@@ -1,9 +1,10 @@
-from typing import TYPE_CHECKING, Optional, Union
+# coding=utf-8
+# coding=utf-8
+
 
 from yandex_music import YandexMusicObject, Artist, Album, Track, Playlist, Video
 
-if TYPE_CHECKING:
-    from yandex_music import Client
+
 
 
 de_json_result = {
@@ -37,11 +38,11 @@ class Best(YandexMusicObject):
     """
 
     def __init__(self,
-                 type_: str,
-                 result: Optional[Union[Track, Artist, Album, Playlist, Video]],
-                 text: Optional[str] = None,
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 type_,
+                 result,
+                 text= None,
+                 client= None,
+                 **kwargs) :
         self.type = type_
         self.result = result
 
@@ -51,7 +52,7 @@ class Best(YandexMusicObject):
         self._id_attrs = (self.type, self.result)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['Best']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:

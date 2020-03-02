@@ -1,9 +1,9 @@
-from typing import TYPE_CHECKING, Optional, List
+# coding=utf-8
+
 
 from yandex_music import YandexMusicObject
 
-if TYPE_CHECKING:
-    from yandex_music import Client, User, Cover, MadeFor, TrackShort, PlaylistAbsence, PlayCounter
+
 
 
 class Playlist(YandexMusicObject):
@@ -20,39 +20,39 @@ class Playlist(YandexMusicObject):
     """
 
     def __init__(self,
-                 owner: Optional['User'],
-                 cover: Optional['Cover'],
-                 made_for: Optional['MadeFor'],
-                 play_counter: Optional['PlayCounter'],
-                 playlist_absence: Optional['PlaylistAbsence'],
-                 uid: Optional[int] = None,
-                 kind: Optional[int] = None,
-                 title: Optional[str] = None,
-                 track_count: Optional[int] = None,
-                 tags: Optional[list] = None,
-                 revision: Optional[int] = None,
-                 snapshot: Optional[int] = None,
-                 visibility: Optional[str] = None,
-                 collective: Optional[bool] = None,
-                 created: Optional[str] = None,
-                 modified: Optional[str] = None,
-                 available: Optional[bool] = None,
-                 is_banner: Optional[bool] = None,
-                 is_premiere: Optional[bool] = None,
-                 duration_ms: Optional[int] = None,
-                 og_image: Optional[str] = None,
-                 tracks: List['TrackShort'] = None,
-                 prerolls: Optional[list] = None,
-                 likes_count: Optional[int] = None,
-                 generated_playlist_type: Optional[str] = None,
-                 animated_cover_uri: Optional[str] = None,
-                 ever_played: Optional[bool] = None,
-                 description: Optional[str] = None,
-                 description_formatted: Optional[str] = None,
+                 owner,
+                 cover,
+                 made_for,
+                 play_counter,
+                 playlist_absence,
+                 uid= None,
+                 kind= None,
+                 title= None,
+                 track_count= None,
+                 tags= None,
+                 revision= None,
+                 snapshot= None,
+                 visibility= None,
+                 collective= None,
+                 created= None,
+                 modified= None,
+                 available= None,
+                 is_banner= None,
+                 is_premiere= None,
+                 duration_ms= None,
+                 og_image= None,
+                 tracks= None,
+                 prerolls= None,
+                 likes_count= None,
+                 generated_playlist_type= None,
+                 animated_cover_uri= None,
+                 ever_played= None,
+                 description= None,
+                 description_formatted= None,
                  is_for_from=None,
                  regions=None,
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 client= None,
+                 **kwargs) :
         self.owner = owner
         self.cover = cover
         self.made_for = made_for
@@ -90,23 +90,23 @@ class Playlist(YandexMusicObject):
         self._id_attrs = (self.uid, self.kind, self.title, self.playlist_absence)
 
     @property
-    def is_mine(self) -> bool:
+    def is_mine(self):
         return self.owner.uid == self.client.me.account.uid
 
     @property
-    def playlist_id(self) -> str:
-        return f'{self.owner.uid}:{self.kind}'
+    def playlist_id(self):
+        return '%s:%s' % self.owner.uid, self.kind
 
-    def download_animated_cover(self, filename: str, size: str = '200x200') -> None:
+    def download_animated_cover(self, filename, size = '200x200') :
         """Загрузка анимированной обложки.
 
         Args:
             filename (:obj:`str`): Путь для сохранения файла с названием и расширением (GIF).
             size (:obj:`str`, optional): Размер анимированной обложки.
         """
-        self.client.request.download(f'https://{self.animated_cover_uri.replace("%%", size)}', filename)
+        self.client.request.download('https://%s' % self.animated_cover_uri.replace("%%", size), filename)
 
-    def download_og_image(self, filename: str, size: str = '200x200') -> None:
+    def download_og_image(self, filename, size = '200x200') :
         """Загрузка обложки.
 
         Используйте это только когда нет self.cover!
@@ -115,22 +115,22 @@ class Playlist(YandexMusicObject):
             filename (:obj:`str`): Путь для сохранения файла с названием и расширением.
             size (:obj:`str`, optional): Размер обложки.
         """
-        self.client.request.download(f'https://{self.og_image.replace("%%", size)}', filename)
+        self.client.request.download('https://%s' % self.og_image.replace("%%", size), filename)
 
-    def rename(self, name: str) -> None:
+    def rename(self, name) :
         client, kind = self.client, self.kind
 
         self.__dict__.clear()
         self.__dict__.update(client.users_playlists_name(kind, name).__dict__)
 
-    def like(self, *args, **kwargs) -> bool:
+    def like(self, *args, **kwargs):
         """Сокращение для::
 
             client.users_likes_playlists_add(playlist.uid, user.id *args, **kwargs)
         """
         return self.client.users_likes_playlists_add(self.uid, self.client.me.account.uid, *args, **kwargs)
 
-    def dislike(self, *args, **kwargs) -> bool:
+    def dislike(self, *args, **kwargs):
         """Сокращение для::
 
             client.users_likes_playlists_remove(playlist.uid, user.id *args, **kwargs)
@@ -138,7 +138,7 @@ class Playlist(YandexMusicObject):
         return self.client.users_likes_playlists_remove(self.uid, self.client.me.account.uid, *args, **kwargs)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['Playlist']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:
@@ -168,7 +168,7 @@ class Playlist(YandexMusicObject):
         return cls(client=client, **data)
 
     @classmethod
-    def de_list(cls, data: dict, client: 'Client') -> List['Playlist']:
+    def de_list(cls, data, client):
         """Десериализация списка объектов.
 
         Args:

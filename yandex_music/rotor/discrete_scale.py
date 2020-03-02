@@ -1,9 +1,10 @@
-from typing import TYPE_CHECKING, Optional
+# coding=utf-8
+# coding=utf-8
+
 
 from yandex_music import YandexMusicObject
 
-if TYPE_CHECKING:
-    from yandex_music import Client, Value
+
 
 
 class DiscreteScale(YandexMusicObject):
@@ -34,12 +35,12 @@ class DiscreteScale(YandexMusicObject):
     """
 
     def __init__(self,
-                 type_: str,
-                 name: str,
-                 min_: Optional['Value'],
-                 max_: Optional['Value'],
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 type_,
+                 name,
+                 min_,
+                 max_,
+                 client= None,
+                 **kwargs) :
         self.type = type_
         self.name = name
         self.min = min_
@@ -49,7 +50,7 @@ class DiscreteScale(YandexMusicObject):
         self._id_attrs = (self.type, self.name, self.min, self.max)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['DiscreteScale']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:

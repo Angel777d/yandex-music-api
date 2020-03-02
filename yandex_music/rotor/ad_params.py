@@ -1,9 +1,10 @@
-from typing import TYPE_CHECKING, Optional, Union
+# coding=utf-8
+# coding=utf-8
+
 
 from yandex_music import YandexMusicObject
 
-if TYPE_CHECKING:
-    from yandex_music import Client
+
 
 
 class AdParams(YandexMusicObject):
@@ -39,16 +40,16 @@ class AdParams(YandexMusicObject):
     """
 
     def __init__(self,
-                 partner_id: Union[str, int],
-                 category_id: Union[str, int],
-                 page_ref: str,
-                 target_ref: str,
-                 other_params: str,
-                 ad_volume: int,
-                 genre_id: Optional[str] = None,
-                 genre_name: Optional[str] = None,
-                 client: Optional['Client'] = None,
-                 **kwargs) -> None:
+                 partner_id,
+                 category_id,
+                 page_ref,
+                 target_ref,
+                 other_params,
+                 ad_volume,
+                 genre_id= None,
+                 genre_name= None,
+                 client= None,
+                 **kwargs) :
         self.partner_id = partner_id
         self.category_id = category_id
         self.page_ref = page_ref
@@ -64,7 +65,7 @@ class AdParams(YandexMusicObject):
                           self.target_ref, self.other_params, self.ad_volume)
 
     @classmethod
-    def de_json(cls, data: dict, client: 'Client') -> Optional['AdParams']:
+    def de_json(cls, data, client):
         """Десериализация объекта.
 
         Args:
