@@ -1,6 +1,6 @@
 # coding=utf-8
 
-import future
+from .utils.reserved_names import reserved_names
 from abc import ABCMeta
 #
 
@@ -14,7 +14,6 @@ try:
 except ImportError:
 	import json
 
-reserved_names = [name.lower() for name in dir(future)]
 
 
 class YandexMusicObject:

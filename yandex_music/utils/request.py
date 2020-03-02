@@ -5,9 +5,9 @@
 import json
 import logging
 import re
+from reserved_names import reserved_names as r_names
 
 import requests
-from future import builtins
 from urllib3.exceptions import TimeoutError
 
 from yandex_music.exceptions import Unauthorized, BadRequest, NetworkError, YandexMusicError, CaptchaRequired, \
@@ -19,8 +19,7 @@ USER_AGENT = 'Yandex-Music-API'
 HEADERS = {
 	'X-Yandex-Music-Client': 'YandexMusicAndroid/23020055',
 }
-
-reserved_names = [name.lower() for name in dir(builtins)] + ['client', 'type', 'id']
+reserved_names = r_names + ['client']
 
 logging.getLogger('urllib3').setLevel(logging.WARNING)
 
