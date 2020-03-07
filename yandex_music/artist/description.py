@@ -29,11 +29,11 @@ class Description(YandexMusicObject):
 
     def __init__(self,
                  text,
-                 url,
+                 uri,
                  client= None,
                  **kwargs) :
         self.text = text
-        self.url = url
+        self.url = uri
 
         self.client = client
         self._id_attrs = (self.text, self.url)
