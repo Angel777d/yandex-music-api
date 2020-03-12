@@ -1,6 +1,7 @@
 # coding=utf-8
 import functools
 import logging
+import time
 from datetime import datetime
 
 from yandex_music import Album, Artist, ArtistAlbums, ArtistTracks, BriefInfo, Dashboard, DownloadInfo, Experiments, \
@@ -1124,7 +1125,7 @@ class Client(YandexMusicObject):
 		"""
 
 		if timestamp is None:
-			timestamp = datetime.now().timestamp()
+			timestamp = time.mktime(datetime.now().timetuple())
 
 		url = '%s/rotor/station/%s/feedback' % (self.base_url, station)
 
