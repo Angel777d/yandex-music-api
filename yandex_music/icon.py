@@ -41,7 +41,10 @@ class Icon(YandexMusicObject):
             filename (:obj:`str`): Путь для сохранения файла с названием и расширением.
             size (:obj:`str`, optional): Размер иконки.
         """
-        self.client.request.download('https://%s' % self.image_url.replace("%%", size), filename)
+        self.client.request.download(self.get_url(size), filename)
+
+    def get_url(self, size='200x200'):
+        return 'https://%s' % self.image_url.replace("%%", size)
 
     @classmethod
     def de_json(cls, data, client):
