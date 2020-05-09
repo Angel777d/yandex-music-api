@@ -771,6 +771,32 @@ class Client(YandexMusicObject):
 
 		return Playlist.de_list(result, self)
 
+	def playlist(self, kind=None, user_id=None, timeout=None, *args, **kwargs):
+		"""Получение плейлиста или списка плейлистов по уникальным идентификаторам.
+
+		Args:
+			kind (:obj:`str` | :obj:`int` ): Уникальный идентификатор плейлиста.
+			user_id (:obj:`str` | :obj:`int`, optional): Уникальный идентификатор пользователя владеющим плейлистом.
+			timeout (:obj:`int` | :obj:`float`, optional): Если это значение указано, используется как время ожидания
+				ответа от сервера вместо указанного при создании пула.
+			**kwargs (:obj:`dict`, optional): Произвольные аргументы (будут переданы в запрос).
+
+		Returns:
+			:obj:`list` из :obj:`yandex_music.Playlist`: Список объектов класса :class:`yandex_music.Playlist`
+			представляющих плейлист, иначе :obj:`None`.
+
+		Raises:
+			:class:`yandex_music.YandexMusicError`
+		"""
+
+		if user_id is None and self.me is not None:
+			user_id = self.me.account.uid
+
+		url = '%s/users/%s/playlists/%s' % (self.base_url, user_id, kind)
+		result = self._request.get(url, timeout=timeout, *args, **kwargs)
+
+		return Playlist.de_json(result, self)
+
 	@log
 	def users_playlists_create(self, title, visibility='public', user_id=None,
 							   timeout=None, *args, **kwargs):
