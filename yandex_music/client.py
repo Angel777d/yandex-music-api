@@ -7,7 +7,7 @@ from datetime import datetime
 from yandex_music import Album, Artist, ArtistAlbums, ArtistTracks, BriefInfo, Dashboard, DownloadInfo, Experiments, \
 	Feed, Genre, Landing, Like, PermissionAlerts, Playlist, PromoCodeStatus, Search, Settings, ShotEvent, SimilarTracks, \
 	StationResult, StationTracksResult, Status, Suggestions, Supplement, Track, TracksList, UserSettings, \
-	YandexMusicObject, ChartInfo
+	YandexMusicObject, ChartInfo, TagResult
 from yandex_music.exceptions import Captcha, InvalidToken
 from yandex_music.utils.difference import Difference
 from yandex_music.utils.request import Request
@@ -496,6 +496,35 @@ class Client(YandexMusicObject):
 		result = self._request.get(url, timeout=timeout, *args, **kwargs)
 
 		return Genre.de_list(result, self)
+
+	@log
+	def tags(self, tag_id, timeout=None, *args, **kwargs):
+		"""Получение тега (подборки).
+
+		Note:
+			Теги есть в `MixLink` у `Landing`, а также плейлистов в `.tags`.
+
+			У `MixLink` есть `URL`, но `tag_id` только его последняя часть.
+			Например, `/tag/belarus/`. `Tag` - `belarus`.
+
+		Args:
+			tag_id (:obj:`str`): Уникальный идентификатор тега.
+			timeout (:obj:`int` | :obj:`float`, optional): Если это значение указано, используется как время ожидания
+				ответа от сервера вместо указанного при создании пула.
+			**kwargs (:obj:`dict`, optional): Произвольные аргументы (будут переданы в запрос).
+
+		Returns:
+		   :obj:`yandex_music.TagResult`: Тег с плейлистами.
+
+		Raises:
+			:class:`yandex_music.exceptions.YandexMusicError`: Базовое исключение библиотеки.
+		"""
+
+		url = "%s/tags/%s/playlist-ids" % (self.base_url, tag_id)
+
+		result = self._request.get(url, timeout=timeout, *args, **kwargs)
+
+		return TagResult.de_json(result, self)
 
 	@log
 	def tracks_download_info(self, track_id, get_direct_links=False,

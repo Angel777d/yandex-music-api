@@ -38,6 +38,8 @@ from .playlist.play_counter import PlayCounter
 from .playlist.playlist_id import PlaylistId
 from .playlist.playlist_absence import PlaylistAbsence
 from .playlist.playlist import Playlist
+from .playlist.tag import Tag
+from .playlist.tag_result import TagResult
 
 from .shot.shot_type import ShotType
 from .shot.shot_data import ShotData
@@ -116,7 +118,7 @@ from .client import Client
 __all__ = ['YandexMusicObject', 'Client', 'Account', 'PassportPhone', 'InvocationInfo', 'Permissions', 'Plus',
            'Subscription', 'Status', 'Price', 'Product', 'AutoRenewable', 'Settings', 'PermissionAlerts', 'Experiments',
            'Cover', 'Ratings', 'Counts', 'Link', 'Artist', 'User', 'CaseForms', 'MadeFor', 'Label', 'Album',
-           'PlayCounter', 'Playlist', 'TrackShort', 'TracksList', 'Major', 'Normalization', 'TrackPosition', 'Track',
+           'PlayCounter', 'Playlist', 'Tag', 'TagResult', 'TrackShort', 'TracksList', 'Major', 'Normalization', 'TrackPosition', 'Track',
            'Like', 'GeneratedPlaylist', 'TrackWithAds', 'Day', 'ArtistEvent', 'AlbumEvent', 'Feed', 'Event',
            'PromoCodeStatus', 'DownloadInfo', 'Video', 'SearchResult', 'Best', 'Search', 'Suggestions', 'MixLink',
            'BlockEntity', 'Block', 'PlayContextsData', 'TrackId', 'TrackShortOld', 'PersonalPlaylistsData', 'Promotion',
