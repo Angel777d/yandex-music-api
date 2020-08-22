@@ -7,7 +7,7 @@ from datetime import datetime
 from yandex_music import Album, Artist, ArtistAlbums, ArtistTracks, BriefInfo, Dashboard, DownloadInfo, Experiments, \
 	Feed, Genre, Landing, Like, PermissionAlerts, Playlist, PromoCodeStatus, Search, Settings, ShotEvent, SimilarTracks, \
 	StationResult, StationTracksResult, Status, Suggestions, Supplement, Track, TracksList, UserSettings, \
-	YandexMusicObject
+	YandexMusicObject, ChartInfo
 from yandex_music.exceptions import Captcha, InvalidToken
 from yandex_music.utils.difference import Difference
 from yandex_music.utils.request import Request
@@ -449,6 +449,32 @@ class Client(YandexMusicObject):
 		return Landing.de_json(result, self)
 
 	@log
+	def chart(self, chart_option='', timeout=None, *args, **kwargs):
+		"""Получение чарта.
+		Note:
+			`chart_option` это постфикс к запросу из поля `menu` чарта.
+			Например на сайте можно выбрать глобальный (world) чарт или российский (russia).
+		Args:
+			chart_option (:obj:`str` optional): Параметры чарта.
+			timeout (:obj:`int` | :obj:`float`, optional): Если это значение указано, используется как время ожидания
+				ответа от сервера вместо указанного при создании пула.
+			**kwargs (:obj:`dict`, optional): Произвольные аргументы (будут переданы в запрос).
+		Returns:
+			:obj:`yandex_music.ChartInfo`: Чарт.
+		Raises:
+			:class:`yandex_music.exceptions.YandexMusicError`: Базовое исключение библиотеки.
+		"""
+
+		url = self.base_url + '/landing3/chart'
+
+		if chart_option:
+			url = "%s/%s" % (url, chart_option)
+
+		result = self._request.get(url, timeout=timeout, *args, **kwargs)
+
+		return ChartInfo.de_json(result, self)
+
+	@log
 	def genres(self, timeout=None, *args, **kwargs):
 		"""Получение жанров музыки.
 
@@ -523,7 +549,7 @@ class Client(YandexMusicObject):
 		return Supplement.de_json(result, self)
 
 	@log
-	def tracks_similar(self, track_id=None,  timeout=None,
+	def tracks_similar(self, track_id=None, timeout=None,
 					   *args, **kwargs):
 		"""Получение похожих треков.
 
@@ -613,7 +639,7 @@ class Client(YandexMusicObject):
 
 		return result == 'ok'
 
-	def albums_with_tracks(self, album_id=None,  timeout=None,
+	def albums_with_tracks(self, album_id=None, timeout=None,
 						   *args, **kwargs):
 		"""Получение альбома по его уникальному идентификатору вместе с треками.
 
@@ -925,7 +951,7 @@ class Client(YandexMusicObject):
 
 	@log
 	def users_playlists_change(self, kind, diff, revision=1,
-							   user_id=None,  timeout=None,
+							   user_id=None, timeout=None,
 							   *args, **kwargs):
 		"""Изменение плейлиста.
 
@@ -967,7 +993,7 @@ class Client(YandexMusicObject):
 		return Playlist.de_json(result, self)
 
 	@log
-	def users_playlists_insert_track(self, kind,  track_id=None,  album_id=None,
+	def users_playlists_insert_track(self, kind, track_id=None, album_id=None,
 									 at=None, revision=None, user_id=None,
 									 timeout=None, *args, **kwargs):
 		"""Добавление трека в плейлист.
@@ -1003,7 +1029,7 @@ class Client(YandexMusicObject):
 
 	@log
 	def users_playlists_delete_track(self, kind, from_, to, revision=1,
-									 user_id=None,  timeout=None,
+									 user_id=None, timeout=None,
 									 *args, **kwargs):
 		"""Удаление треков из плейлиста.
 
@@ -1117,7 +1143,7 @@ class Client(YandexMusicObject):
 	@log
 	def rotor_station_feedback(self, station, type_, timestamp=None,
 							   from_=None, batch_id=None, total_played_seconds=None,
-							   track_id=None,  timeout=None,
+							   track_id=None, timeout=None,
 							   *args, **kwargs):
 		"""Отправка ответной реакции на происходящее при прослушивании радио.
 
@@ -1446,7 +1472,7 @@ class Client(YandexMusicObject):
 		return ArtistAlbums.de_json(result, self)
 
 	def _like_action(self, object_type, ids, remove=False,
-					 user_id=None, timeout = None, *args, **kwargs):
+					 user_id=None, timeout=None, *args, **kwargs):
 		if user_id is None and self.me is not None:
 			user_id = self.me.account.uid
 
@@ -1519,7 +1545,7 @@ class Client(YandexMusicObject):
 		return de_list.get(object_type)(result, self)
 
 	@log
-	def artists(self, artist_ids=None, timeout= None,
+	def artists(self, artist_ids=None, timeout=None,
 				*args, **kwargs):
 		return self._get_list('artist', artist_ids, timeout=timeout, *args, **kwargs)
 
@@ -1539,7 +1565,7 @@ class Client(YandexMusicObject):
 		return self._get_list('playlist', playlist_ids, timeout=timeout, *args, **kwargs)
 
 	@log
-	def users_playlists_list(self, user_id=None,  timeout=None,
+	def users_playlists_list(self, user_id=None, timeout=None,
 							 *args, **kwargs):
 		if user_id is None and self.me is not None:
 			user_id = self.me.account.uid
