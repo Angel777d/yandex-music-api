@@ -94,6 +94,10 @@ class Playlist(YandexMusicObject):
         return self.owner.uid == self.client.me.account.uid
 
     @property
+    def is_valid(self):
+        return self.owner is not None
+
+    @property
     def playlist_id(self):
         return '%s:%s' % (self.owner.uid, self.kind)
 
