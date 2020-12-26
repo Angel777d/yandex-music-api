@@ -68,6 +68,8 @@ class Label(YandexMusicObject):
 
         labels = list()
         for label in data:
-            labels.append(cls.de_json(label, client))
-
+            if type(label) == dict:
+                labels.append(cls.de_json(label, client))
+            else:
+                labels.append(label)
         return labels
